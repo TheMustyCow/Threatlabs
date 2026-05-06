@@ -30,18 +30,27 @@ export default function App() {
   const [path, setPath] = useState(() => normalizePath(window.location.pathname));
 
   useEffect(() => {
+    window.history.scrollRestoration = 'manual';
     const handlePopState = () => setPath(normalizePath(window.location.pathname));
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [path]);
+
   const navigate = (nextPath: string) => {
     if (nextPath !== path) {
       window.history.pushState({}, '', nextPath);
       setPath(nextPath);
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
     }
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const page = useMemo(() => {

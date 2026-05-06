@@ -1,5 +1,5 @@
-import { Menu, ShieldCheck, X } from 'lucide-react';
-import { type ReactNode, useState } from 'react';
+import { Menu, Moon, ShieldCheck, Sun, X } from 'lucide-react';
+import { type ReactNode, useEffect, useState } from 'react';
 
 export type NavItem = {
   path: string;
@@ -15,6 +15,20 @@ type LayoutProps = {
 
 export function Layout({ children, currentPath, navItems, onNavigate }: LayoutProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const savedTheme = window.localStorage.getItem('threat-labs-theme');
+
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+      return savedTheme;
+    }
+
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  });
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    window.localStorage.setItem('threat-labs-theme', theme);
+  }, [theme]);
 
   const handleNavigate = (path: string) => {
     onNavigate(path);
@@ -39,16 +53,6 @@ export function Layout({ children, currentPath, navItems, onNavigate }: LayoutPr
           <span>Threat Labs</span>
         </a>
 
-        <button
-          className="menu-button"
-          type="button"
-          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          {menuOpen ? <X size={21} /> : <Menu size={21} />}
-        </button>
-
         <nav className={`site-nav ${menuOpen ? 'is-open' : ''}`} aria-label="Primary navigation">
           {navItems.map((item) => {
             const isActive = currentPath === item.path || (currentPath === '' && item.path === '/');
@@ -69,6 +73,27 @@ export function Layout({ children, currentPath, navItems, onNavigate }: LayoutPr
             );
           })}
         </nav>
+
+        <div className="header-actions">
+          <button
+            className="theme-toggle"
+            type="button"
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            onClick={() => setTheme((currentTheme) => (currentTheme === 'dark' ? 'light' : 'dark'))}
+          >
+            {theme === 'dark' ? <Sun size={19} /> : <Moon size={19} />}
+          </button>
+
+          <button
+            className="menu-button"
+            type="button"
+            aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? <X size={21} /> : <Menu size={21} />}
+          </button>
+        </div>
       </header>
 
       <main>{children}</main>
