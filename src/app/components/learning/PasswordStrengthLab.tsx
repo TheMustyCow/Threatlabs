@@ -19,7 +19,37 @@ function includesPattern(value: string, patterns: string[]) {
   return patterns.some((pattern) => lower.includes(pattern));
 }
 
+function getCharacterSetSize(checks: { uppercase: boolean; lowercase: boolean; number: boolean; symbol: boolean }) {
+  return (
+    (checks.lowercase ? 26 : 0) +
+    (checks.uppercase ? 26 : 0) +
+    (checks.number ? 10 : 0) +
+    (checks.symbol ? 33 : 0)
+  );
+}
+
+function scoreFromEstimatedBits(bits: number) {
+  if (bits >= 80) {
+    return 100;
+  }
+
+  if (bits >= 60) {
+    return 90 + (bits - 60) * 0.5;
+  }
+
+  if (bits >= 45) {
+    return 70 + (bits - 45) * (20 / 15);
+  }
+
+  if (bits >= 30) {
+    return 40 + (bits - 30) * 2;
+  }
+
+  return bits * (40 / 30);
+}
+
 function estimatePassword(value: string) {
+  const wordChunks = value.trim().split(/[\s._-]+/).filter(Boolean);
   const checks = {
     length12: value.length >= 12,
     length16: value.length >= 16,
@@ -30,21 +60,57 @@ function estimatePassword(value: string) {
     repeated: hasRepeatedCharacters(value),
     common: includesPattern(value, commonWords),
     sequential: includesPattern(value, sequentialPatterns),
-    passphrase: value.trim().split(/[\s._-]+/).filter(Boolean).length >= 4 && value.length >= 18,
+    passphrase: wordChunks.length >= 4 && value.length >= 18,
   };
+  const characterClassCount = [checks.uppercase, checks.lowercase, checks.number, checks.symbol].filter(Boolean).length;
+  const characterSetSize = getCharacterSetSize(checks);
+  const characterEntropyBits = characterSetSize > 0 ? value.length * Math.log2(characterSetSize) : 0;
+  const passphraseEntropyBits =
+    wordChunks.length >= 4
+      ? wordChunks.length * 16 + (checks.number ? 6 : 0) + (checks.symbol ? 4 : 0) + (checks.uppercase ? 3 : 0)
+      : 0;
 
-  let score = 0;
-  score += Math.min(value.length * 3, 36);
-  score += checks.length12 ? 12 : 0;
-  score += checks.length16 ? 10 : 0;
-  score += checks.uppercase ? 8 : 0;
-  score += checks.lowercase ? 8 : 0;
-  score += checks.number ? 8 : 0;
-  score += checks.symbol ? 10 : 0;
-  score += checks.passphrase ? 8 : 0;
-  score -= checks.repeated ? 14 : 0;
-  score -= checks.common ? 22 : 0;
-  score -= checks.sequential ? 16 : 0;
+  let score = scoreFromEstimatedBits(Math.max(characterEntropyBits, passphraseEntropyBits));
+  score -= checks.repeated ? 12 : 0;
+  score -= checks.common ? 28 : 0;
+  score -= checks.sequential ? 18 : 0;
+
+  if (value.length < 8) {
+    score = Math.min(score, 35);
+  } else if (value.length < 12) {
+    score = Math.min(score, 62);
+  }
+
+  if (checks.common) {
+    score = Math.min(score, 48);
+  }
+
+  if (checks.sequential) {
+    score = Math.min(score, 74);
+  }
+
+  if (checks.repeated) {
+    score = Math.min(score, 82);
+  }
+
+  const strongPhraseOrGenerated = checks.passphrase || (value.length >= 20 && characterClassCount === 4);
+  const rules: RuleResult[] = [
+    { id: 'length12', label: 'Longer than 12 characters', passed: checks.length12 },
+    { id: 'length16', label: 'Extra length beyond 16 characters', passed: checks.length16 },
+    { id: 'uppercase', label: 'Includes an uppercase letter', passed: checks.uppercase },
+    { id: 'lowercase', label: 'Includes a lowercase letter', passed: checks.lowercase },
+    { id: 'number', label: 'Includes a number', passed: checks.number },
+    { id: 'symbol', label: 'Includes a symbol', passed: checks.symbol },
+    { id: 'repeated', label: 'Avoids repeated characters', passed: !checks.repeated },
+    { id: 'common', label: 'Avoids common weak words', passed: !checks.common },
+    { id: 'sequential', label: 'Avoids obvious sequences', passed: !checks.sequential },
+    { id: 'passphrase', label: 'Strong passphrase or generated-style length', passed: strongPhraseOrGenerated },
+  ];
+  const passesEveryVisibleRule = rules.every((rule) => rule.passed);
+
+  if (!passesEveryVisibleRule) {
+    score = Math.min(score, 99);
+  }
 
   const normalizedScore = value.length === 0 ? 0 : Math.max(0, Math.min(100, Math.round(score)));
   const label =
@@ -67,23 +133,21 @@ function estimatePassword(value: string) {
           ? 'Better, but still has room for safer habits.'
           : normalizedScore >= 28
             ? 'Likely easy to guess or automate against.'
-            : 'Very easy to guess, especially if reused.';
-
-  const rules: RuleResult[] = [
-    { id: 'length12', label: 'Longer than 12 characters', passed: checks.length12 },
-    { id: 'length16', label: 'Extra length beyond 16 characters', passed: checks.length16 },
-    { id: 'variety', label: 'Uses letters, numbers, or symbols with variety', passed: [checks.uppercase, checks.lowercase, checks.number, checks.symbol].filter(Boolean).length >= 3 },
-    { id: 'repeated', label: 'Avoids repeated characters', passed: !checks.repeated },
-    { id: 'common', label: 'Avoids common weak words', passed: !checks.common },
-    { id: 'sequential', label: 'Avoids obvious sequences', passed: !checks.sequential },
-    { id: 'passphrase', label: 'Looks like a strong passphrase', passed: checks.passphrase },
-  ];
+      : 'Very easy to guess, especially if reused.';
 
   const suggestions = [
     !checks.length12 ? 'Aim for at least 12 characters. Longer is usually better than complex-but-short.' : '',
-    [checks.uppercase, checks.lowercase, checks.number, checks.symbol].filter(Boolean).length < 3
+    !checks.uppercase ? 'Add an uppercase letter if you want a perfect lab score.' : '',
+    !checks.lowercase ? 'Add a lowercase letter if you want a perfect lab score.' : '',
+    !checks.number ? 'Add a number if you want a perfect lab score.' : '',
+    !checks.symbol ? 'Add a symbol if you want a perfect lab score.' : '',
+    !strongPhraseOrGenerated
+      ? 'Use at least four separated words, or make it 20+ characters with all character types.'
+      : '',
+    !checks.passphrase && characterClassCount < 3
       ? 'Mix character types, or use a long passphrase with several unrelated words.'
       : '',
+    checks.passphrase && wordChunks.length < 5 ? 'Add one more unrelated word to make the passphrase stronger.' : '',
     checks.common ? 'Remove common words such as password, admin, welcome, qwerty, or 123456.' : '',
     checks.sequential ? 'Avoid sequences like abc, 123, qwerty, and keyboard walks.' : '',
     checks.repeated ? 'Avoid repeated runs such as aaa or 111.' : '',
@@ -92,7 +156,7 @@ function estimatePassword(value: string) {
 
   const badges = [
     checks.length12 ? 'Longer than 12 characters' : '',
-    [checks.uppercase, checks.lowercase, checks.number, checks.symbol].filter(Boolean).length >= 3 ? 'Uses variety' : '',
+    characterClassCount >= 3 ? 'Uses variety' : '',
     !checks.common && !checks.sequential && value.length > 0 ? 'Avoids common patterns' : '',
     checks.passphrase ? 'Strong passphrase' : '',
   ].filter(Boolean);
