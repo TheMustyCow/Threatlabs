@@ -103,7 +103,7 @@ export function Layout({ children, currentPath, navItems, onNavigate }: LayoutPr
           <strong>Threat Labs</strong>
           <p>Practical cybersecurity lessons for everyday decisions.</p>
         </div>
-        <p className="footer-note">All labs run locally in your browser. No accounts. No backend.</p>
+        <p className="footer-note">All labs run locally in your browser. No accounts.</p>
       </footer>
     </div>
   );

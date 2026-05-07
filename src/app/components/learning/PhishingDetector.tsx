@@ -11,9 +11,10 @@ type MessageExample = {
   id: string;
   name: string;
   sender: string;
+  senderClueId?: string;
   subject: string;
-  body: string;
-  footer: string;
+  bodyParts: Array<string | { clueId: string; text: string }>;
+  footer: string | { label: string; clueId: string; text: string };
   clues: Clue[];
 };
 
@@ -22,10 +23,18 @@ const examples: MessageExample[] = [
     id: 'obvious',
     name: 'Obvious phishing',
     sender: 'security-alert@example.com',
+    senderClueId: 'sender',
     subject: 'Your mailbox will be closed today',
-    body:
-      'We detected unusual activity. Confirm your password immediately at account-review.example.com or your mailbox will be deleted.',
-    footer: 'Attachment: Mailbox_Update_Form.html',
+    bodyParts: [
+      'We detected unusual activity. ',
+      { clueId: 'password', text: 'Confirm your password' },
+      ' immediately at ',
+      { clueId: 'link', text: 'account-review.example.com' },
+      ' or ',
+      { clueId: 'urgency', text: 'your mailbox will be deleted' },
+      '.',
+    ],
+    footer: { label: 'Attachment', clueId: 'attachment', text: 'Mailbox_Update_Form.html' },
     clues: [
       {
         id: 'sender',
@@ -46,6 +55,12 @@ const examples: MessageExample[] = [
         explanation: 'Legitimate services should not ask you to provide a password through an email link.',
       },
       {
+        id: 'link',
+        label: 'Suspicious link',
+        text: 'account-review.example.com',
+        explanation: 'The link uses a generic safe example domain. Visit the real service through a known address instead.',
+      },
+      {
         id: 'attachment',
         label: 'Unexpected attachment',
         text: 'Mailbox_Update_Form.html',
@@ -58,8 +73,15 @@ const examples: MessageExample[] = [
     name: 'Subtle phishing',
     sender: 'billing-team@example.com',
     subject: 'Invoice question for your account',
-    body:
-      'Hi, we noticed a payment issue on your account. Please review the secure billing note at portal.example.com before the end of the day.',
+    bodyParts: [
+      'Hi, we noticed a ',
+      { clueId: 'context', text: 'payment issue on your account' },
+      '. Please review the secure billing note at ',
+      { clueId: 'link', text: 'portal.example.com' },
+      ' ',
+      { clueId: 'deadline', text: 'before the end of the day' },
+      '.',
+    ],
     footer: 'This message was sent by Example Billing Services.',
     clues: [
       {
@@ -102,11 +124,23 @@ export function PhishingDetector() {
     setActiveClueId(id);
   };
 
+  const renderHotspot = (clueId: string, text: string) => (
+    <button
+      className={foundClues.includes(clueId) ? 'suspicious-part is-found' : 'suspicious-part'}
+      type="button"
+      key={`${message.id}-${clueId}-${text}`}
+      onClick={() => toggleClue(clueId)}
+    >
+      {text}
+    </button>
+  );
+
   return (
     <section className="interactive-panel" aria-labelledby="phishing-detector-title">
       <div className="panel-heading">
         <div>
           <p className="eyebrow">Interactive</p>
+          <p className="eyebrow">Find all the clues</p>
           <h2 id="phishing-detector-title">Phishing Detector</h2>
         </div>
         <p>
@@ -131,28 +165,33 @@ export function PhishingDetector() {
         <article className="email-card" aria-label={`${message.name} example message`}>
           <div className="email-row">
             <span>From</span>
-            <button type="button" onClick={() => toggleClue('sender')} disabled={!message.clues.some((clue) => clue.id === 'sender')}>
-              {message.sender}
-            </button>
+            {message.senderClueId ? renderHotspot(message.senderClueId, message.sender) : <strong>{message.sender}</strong>}
           </div>
           <div className="email-row">
             <span>Subject</span>
             <strong>{message.subject}</strong>
           </div>
-          <p>{message.body}</p>
-          <div className="clue-buttons" aria-label="Suspicious message parts">
+          <div className="email-body">
+            {message.bodyParts.map((part, index) =>
+              typeof part === 'string' ? <span key={`${message.id}-body-${index}`}>{part}</span> : renderHotspot(part.clueId, part.text),
+            )}
+          </div>
+          <div className="detector-progress" aria-label="Detected suspicious message parts">
             {message.clues.map((clue) => (
-              <button
-                className={foundClues.includes(clue.id) ? 'is-found' : ''}
-                type="button"
-                key={clue.id}
-                onClick={() => toggleClue(clue.id)}
-              >
-                {clue.text}
-              </button>
+              <span className={foundClues.includes(clue.id) ? 'is-found' : ''} key={clue.id}>
+                {foundClues.includes(clue.id) ? clue.label : 'Undetected clue'}
+              </span>
             ))}
           </div>
-          <p className="email-footer">{message.footer}</p>
+          <p className="email-footer">
+            {typeof message.footer === 'string' ? (
+              message.footer
+            ) : (
+              <>
+                {message.footer.label}: {renderHotspot(message.footer.clueId, message.footer.text)}
+              </>
+            )}
+          </p>
         </article>
 
         <aside className="feedback-card" aria-live="polite">

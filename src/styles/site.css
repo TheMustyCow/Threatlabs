@@ -649,34 +649,57 @@ main {
   font-weight: 700;
 }
 
-.email-row button {
+.suspicious-part {
   width: fit-content;
   padding: 0;
-  color: var(--tl-text);
+  color: inherit;
   background: transparent;
-  border: 0;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  cursor: default;
   text-align: left;
-  text-decoration: underline;
-  text-decoration-color: var(--tl-border-strong);
-  text-underline-offset: 4px;
+  text-decoration: none;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
 }
 
-.clue-buttons {
+.suspicious-part:hover {
+  color: inherit;
+  background: transparent;
+  border-color: transparent;
+}
+
+.suspicious-part.is-found {
+  color: var(--tl-accent);
+  background: var(--tl-accent-soft);
+  border-color: rgba(40, 95, 89, 0.34);
+}
+
+.email-body {
+  color: var(--tl-muted);
+  font-size: 1.04rem;
+  line-height: 1.72;
+}
+
+.detector-progress {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin: 18px 0;
 }
 
-.clue-buttons button {
+.detector-progress span {
   padding: 8px 10px;
   color: var(--tl-muted);
   background: var(--tl-chip);
   border: 1px solid var(--tl-border);
   border-radius: 999px;
+  font-size: 0.88rem;
 }
 
-.clue-buttons button.is-found {
+.detector-progress span.is-found {
   color: var(--tl-text);
   background: var(--tl-accent-soft);
   border-color: rgba(40, 95, 89, 0.36);
