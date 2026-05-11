@@ -4,6 +4,10 @@ Threat Labs is a minimalist cybersecurity education website for everyday interne
 
 The site is built as a static Vite/React app. It does not require a backend, authentication, or a database.
 
+## Overview
+- I created this as a design assignment where we used Ai to build something of our choosing.
+- I wanted something that would be able to help people and I thought of common problems. Many people today are unaware of the threats that can go with the ever evolving technology we use every day, and Threat Labs teaches the importance of understanding tech.
+
 ## What It Teaches
 
 - Common cyber threats and simple defenses
