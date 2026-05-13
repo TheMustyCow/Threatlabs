@@ -1,5 +1,6 @@
 import { Menu, Moon, ShieldCheck, Sun, X } from 'lucide-react';
 import { type ReactNode, useEffect, useState } from 'react';
+import { LearningLevelToggle } from './LearningLevelToggle';
 
 export type NavItem = {
   path: string;
@@ -75,6 +76,8 @@ export function Layout({ children, currentPath, navItems, onNavigate }: LayoutPr
         </nav>
 
         <div className="header-actions">
+          <LearningLevelToggle />
+
           <button
             className="theme-toggle"
             type="button"
@@ -103,7 +106,8 @@ export function Layout({ children, currentPath, navItems, onNavigate }: LayoutPr
           <strong>Threat Labs</strong>
           <p>Practical cybersecurity lessons for everyday decisions.</p>
         </div>
-        <p className="footer-note">All labs run locally in your browser. No accounts.</p>
+        {/* Foot note; we can add back later, but it's not running locally. */}
+        {/* <p className="footer-note">All labs run locally in your browser. No accounts.</p> */}
       </footer>
     </div>
   );

@@ -24,6 +24,12 @@
   --tl-meter-text: #efede7;
   --tl-meter-track: #3b3935;
   --tl-meter-fill: #8fb6aa;
+  --level-kids: #2f6e4d;
+  --level-kids-bg: #dcebdd;
+  --level-entry: #2f5f8f;
+  --level-entry-bg: #dce6f3;
+  --level-enthusiast: #9b3a35;
+  --level-enthusiast-bg: #f0dedb;
   --tl-radius: 8px;
   color-scheme: light;
 }
@@ -54,6 +60,12 @@ html[data-theme='dark'] {
   --tl-meter-text: #24241f;
   --tl-meter-track: #cfc8ba;
   --tl-meter-fill: #285f59;
+  --level-kids: #9ac8a6;
+  --level-kids-bg: #203328;
+  --level-entry: #9dbbe0;
+  --level-entry-bg: #202d3d;
+  --level-enthusiast: #e1a19b;
+  --level-enthusiast-bg: #3d2522;
   color-scheme: dark;
 }
 
@@ -177,10 +189,10 @@ a {
 }
 
 .theme-toggle,
-.menu-button {
+.menu-button,
+.learning-level-toggle {
   align-items: center;
   justify-content: center;
-  width: 42px;
   height: 42px;
   color: var(--tl-text);
   background: var(--tl-surface-muted);
@@ -193,7 +205,8 @@ a {
 }
 
 .theme-toggle:hover,
-.menu-button:hover {
+.menu-button:hover,
+.learning-level-toggle:hover {
   color: var(--tl-accent);
   background: var(--tl-nav-hover);
   border-color: var(--tl-border-strong);
@@ -201,10 +214,46 @@ a {
 
 .theme-toggle {
   display: inline-flex;
+  width: 42px;
 }
 
 .menu-button {
   display: none;
+  width: 42px;
+}
+
+.learning-level-toggle {
+  display: inline-flex;
+  gap: 7px;
+  min-width: 96px;
+  padding: 0 13px;
+  font-size: 0.88rem;
+  font-weight: 760;
+}
+
+.learning-level-toggle span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.learning-level-toggle[data-level='kids'] {
+  color: var(--level-kids);
+  background: var(--level-kids-bg);
+  border-color: color-mix(in srgb, var(--level-kids), transparent 70%);
+}
+
+.learning-level-toggle[data-level='entry'] {
+  color: var(--level-entry);
+  background: var(--level-entry-bg);
+  border-color: color-mix(in srgb, var(--level-entry), transparent 70%);
+}
+
+.learning-level-toggle[data-level='enthusiast'] {
+  color: var(--level-enthusiast);
+  background: var(--level-enthusiast-bg);
+  border-color: color-mix(in srgb, var(--level-enthusiast), transparent 68%);
 }
 
 main {
@@ -536,10 +585,18 @@ main {
   font-weight: 750;
 }
 
-.threat-card button span:last-child {
+.expand-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   color: var(--tl-accent);
   font-size: 0.84rem;
   font-weight: 700;
+}
+
+.expand-action svg {
+  flex: 0 0 auto;
+  stroke-width: 2.2;
 }
 
 .threat-card p {
@@ -617,6 +674,18 @@ main {
   color: var(--tl-text);
   background: var(--tl-accent-soft);
   border-color: rgba(40, 95, 89, 0.34);
+}
+
+.answer-list .is-selected.is-correct {
+  color: var(--tl-good);
+  background: color-mix(in srgb, var(--tl-good), transparent 86%);
+  border-color: color-mix(in srgb, var(--tl-good), transparent 56%);
+}
+
+.answer-list .is-selected.is-incorrect {
+  color: var(--tl-danger);
+  background: color-mix(in srgb, var(--tl-danger), transparent 88%);
+  border-color: color-mix(in srgb, var(--tl-danger), transparent 52%);
 }
 
 .detector-layout,

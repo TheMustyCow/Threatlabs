@@ -1,5 +1,6 @@
 import { Check, Circle, Shield, X } from 'lucide-react';
 import { useMemo, useState } from 'react';
+import { useLearningLevel } from '../../learningLevel';
 
 const commonWords = ['password', 'admin', 'qwerty', 'letmein', 'welcome', '123456'];
 const sequentialPatterns = ['abc', 'bcd', 'cde', '123', '234', '345', '456', '567', '678', '789', 'qwerty', 'asdf'];
@@ -165,8 +166,15 @@ function estimatePassword(value: string) {
 }
 
 export function PasswordStrengthLab() {
+  const { level } = useLearningLevel();
   const [password, setPassword] = useState('');
   const result = useMemo(() => estimatePassword(password), [password]);
+  const levelNote = {
+    kids: 'Think of this as a lock test. Longer secret phrases are stronger, and you should ask a trusted adult before changing real passwords.',
+    entry: 'This tool runs locally in your browser. Nothing is stored or sent.',
+    enthusiast:
+      'Local estimate: length and character set shape the search space; passphrase word count can help; common, repeated, and sequential patterns reduce the score.',
+  }[level];
 
   return (
     <section className="interactive-panel password-panel" aria-labelledby="password-lab-title">
@@ -175,7 +183,7 @@ export function PasswordStrengthLab() {
           <p className="eyebrow">Interactive</p>
           <h2 id="password-lab-title">Password Strength Lab</h2>
         </div>
-        <p>This tool runs locally in your browser. Nothing is stored or sent.</p>
+        <p>{levelNote}</p>
       </div>
 
       <div className="password-layout">

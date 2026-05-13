@@ -1,25 +1,28 @@
 import { CheckCircle2, KeyRound, LockKeyhole, Smartphone } from 'lucide-react';
 import { useState } from 'react';
+import { useLearningLevel } from '../../learningLevel';
 
-const steps = [
-  {
-    title: 'Enter password',
-    copy: 'The password proves something you know. If it is stolen, this step alone may not stop account takeover.',
-    icon: LockKeyhole,
-  },
-  {
-    title: 'Verify second factor',
-    copy: 'A code, passkey, authenticator prompt, or hardware key proves something you have or something you are.',
-    icon: Smartphone,
-  },
-  {
-    title: 'Access granted',
-    copy: 'The account opens after both checks pass. An attacker with only the password is much less likely to get in.',
-    icon: CheckCircle2,
-  },
-];
+const stepsByLevel = {
+  kids: [
+    ['Enter password', 'First you type the secret you know.', LockKeyhole],
+    ['Use second step', 'Then a trusted phone, app, or key helps prove it is you.', Smartphone],
+    ['Account opens', 'The account opens after both checks pass.', CheckCircle2],
+  ],
+  entry: [
+    ['Enter password', 'The password proves something you know. If it is stolen, this step alone may not stop account takeover.', LockKeyhole],
+    ['Verify second factor', 'A code, passkey, authenticator prompt, or hardware key proves something you have or something you are.', Smartphone],
+    ['Access granted', 'The account opens after both checks pass. An attacker with only the password is much less likely to get in.', CheckCircle2],
+  ],
+  enthusiast: [
+    ['Password check', 'The password starts the session, but phishing or reuse can make it insufficient by itself.', LockKeyhole],
+    ['Factor challenge', 'TOTP, passkeys, or hardware keys add possession or cryptographic proof; phishing resistance depends on the method.', Smartphone],
+    ['Session issued', 'After verification, the service issues access. Recovery and session controls still matter.', CheckCircle2],
+  ],
+};
 
 export function TwoFactorFlow() {
+  const { level } = useLearningLevel();
+  const steps = stepsByLevel[level].map(([title, copy, icon]) => ({ title, copy, icon }));
   const [activeIndex, setActiveIndex] = useState(0);
   const activeStep = steps[activeIndex];
   const ActiveIcon = activeStep.icon;
@@ -63,6 +66,25 @@ export function TwoFactorFlow() {
 }
 
 export function TwoFactorRecommendation() {
+  const { level } = useLearningLevel();
+  const recommendations = {
+    kids: [
+      ['Beginner', 'Ask a trusted adult to help turn on a second step.'],
+      ['Stronger', 'Use a trusted device or passkey when available.'],
+      ['Backup', 'Keep recovery codes private and safe.'],
+    ],
+    entry: [
+      ['Beginner', 'Use an authenticator app for important accounts.'],
+      ['Stronger', 'Use passkeys or a hardware security key when available.'],
+      ['Backup', 'Store recovery codes somewhere safe and private.'],
+    ],
+    enthusiast: [
+      ['Baseline', 'Use TOTP rather than SMS where practical.'],
+      ['Stronger', 'Prefer passkeys or FIDO hardware keys for phishing resistance.'],
+      ['Recovery', 'Protect recovery codes and account recovery channels like high-value credentials.'],
+    ],
+  }[level];
+
   return (
     <article className="recommendation-card">
       <div className="icon-disc" aria-hidden="true">
@@ -71,15 +93,11 @@ export function TwoFactorRecommendation() {
       <div>
         <h3>Which 2FA should I use?</h3>
         <ul className="recommendation-list">
-          <li>
-            <strong>Beginner:</strong> Use an authenticator app for important accounts.
-          </li>
-          <li>
-            <strong>Stronger:</strong> Use passkeys or a hardware security key when available.
-          </li>
-          <li>
-            <strong>Backup:</strong> Store recovery codes somewhere safe and private.
-          </li>
+          {recommendations.map(([label, copy]) => (
+            <li key={label}>
+              <strong>{label}:</strong> {copy}
+            </li>
+          ))}
         </ul>
       </div>
     </article>

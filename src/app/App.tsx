@@ -7,6 +7,7 @@ import { NetworksData } from './pages/NetworksData';
 import { PasswordLab } from './pages/PasswordLab';
 import { TwoFactor } from './pages/TwoFactor';
 import { ResourcesReview } from './pages/ResourcesReview';
+import { LearningLevelProvider } from './learningLevel';
 
 const navItems: NavItem[] = [
   { path: '/', label: 'Home' },
@@ -75,8 +76,10 @@ export default function App() {
   }, [path]);
 
   return (
-    <Layout currentPath={path} navItems={navItems} onNavigate={navigate}>
-      {page}
-    </Layout>
+    <LearningLevelProvider>
+      <Layout currentPath={path} navItems={navItems} onNavigate={navigate}>
+        {page}
+      </Layout>
+    </LearningLevelProvider>
   );
 }

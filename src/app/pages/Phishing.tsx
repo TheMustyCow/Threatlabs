@@ -1,40 +1,61 @@
 import { InfoCard } from '../components/InfoCard';
 import { PageHeader } from '../components/PageHeader';
 import { PhishingDetector } from '../components/learning/PhishingDetector';
+import { useLearningLevel } from '../learningLevel';
 
-const warningSigns = [
-  'Strange sender address',
-  'Urgent language',
-  'Suspicious links',
-  'Unexpected attachments',
-  'Spelling or formatting issues',
-  'Requests for passwords or codes',
-];
+const phishingContent = {
+  kids: {
+    title: 'Phishing is a tricky message that wants you to click too fast.',
+    description: 'It may ask for a secret code, a password, or a quick click. Pause and ask a trusted adult.',
+    splitTitle: 'A tricky message may try to rush you.',
+    splitCopy: 'Look for surprises: a strange link, a prize, a warning, or a request for a secret code. You can always stop and ask for help.',
+    signs: ['Strange sender', 'Big hurry', 'Unknown link', 'Unexpected file', 'Secret code request', 'Too-good-to-be-true prize'],
+    signCopy: 'If this appears out of nowhere, pause before clicking.',
+  },
+  entry: {
+    title: 'Phishing messages try to make a bad action feel normal.',
+    description: 'They often borrow trust from brands, schools, employers, banks, delivery services, or people you know.',
+    splitTitle: 'Phishing creates urgency, trust, fear, or curiosity.',
+    splitCopy:
+      'The message may ask you to sign in, open a file, send money, or share a verification code. The safest move is to pause, check the source, and open the service through a known address instead of a surprise link.',
+    signs: ['Strange sender address', 'Urgent language', 'Suspicious links', 'Unexpected attachments', 'Spelling or formatting issues', 'Requests for passwords or codes'],
+    signCopy: 'When this appears unexpectedly, slow down and verify the message through another trusted path.',
+  },
+  enthusiast: {
+    title: 'Phishing blends technical signals with social pressure.',
+    description: 'Look for sender-domain mismatch, suspicious link targets, attachment risk, unusual workflow requests, and pressure patterns.',
+    splitTitle: 'Good phishing often looks routine, not dramatic.',
+    splitCopy:
+      'Inspect the envelope: sender domain, reply-to context, link destination, attachment type, requested action, and timing. The goal is defensive recognition, not panic.',
+    signs: ['Sender spoofing', 'Lookalike domains', 'Link mismatch', 'Attachment risk', 'Credential or MFA-code request', 'Urgency and authority cues'],
+    signCopy: 'Treat this as a signal to verify out-of-band or navigate directly to the known service.',
+  },
+};
 
 export function Phishing() {
+  const { level } = useLearningLevel();
+  const content = phishingContent[level];
+
   return (
     <>
       <PageHeader
         eyebrow="Phishing"
-        title="Phishing messages try to make a bad action feel normal."
-        description="They often borrow trust from brands, schools, employers, banks, delivery services, or people you know."
+        title={content.title}
+        description={content.description}
       />
 
       <section className="split-section">
         <div>
           <p className="eyebrow">How it works</p>
-          <h2>Phishing creates urgency, trust, fear, or curiosity.</h2>
+          <h2>{content.splitTitle}</h2>
         </div>
-        <p>
-          The message may ask you to sign in, open a file, send money, or share a verification code. The safest move is
-          to pause, check the source, and open the service through a known address instead of a surprise link.
-        </p>
+        <p>{content.splitCopy}</p>
       </section>
 
       <section className="content-grid">
-        {warningSigns.map((sign) => (
+        {content.signs.map((sign) => (
           <InfoCard title={sign} key={sign}>
-            <p>When this appears unexpectedly, slow down and verify the message through another trusted path.</p>
+            <p>{content.signCopy}</p>
           </InfoCard>
         ))}
       </section>

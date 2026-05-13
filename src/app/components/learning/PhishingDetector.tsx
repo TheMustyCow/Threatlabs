@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { type LearningLevel, useLearningLevel } from '../../learningLevel';
 
 type Clue = {
   id: string;
@@ -13,105 +14,135 @@ type MessageExample = {
   sender: string;
   senderClueId?: string;
   subject: string;
+  subjectClueId?: string;
   bodyParts: Array<string | { clueId: string; text: string }>;
   footer: string | { label: string; clueId: string; text: string };
   clues: Clue[];
 };
 
-const examples: MessageExample[] = [
-  {
-    id: 'obvious',
-    name: 'Obvious phishing',
-    sender: 'security-alert@example.com',
-    senderClueId: 'sender',
-    subject: 'Your mailbox will be closed today',
-    bodyParts: [
-      'We detected unusual activity. ',
-      { clueId: 'password', text: 'Confirm your password' },
-      ' immediately at ',
-      { clueId: 'link', text: 'account-review.example.com' },
-      ' or ',
-      { clueId: 'urgency', text: 'your mailbox will be deleted' },
-      '.',
-    ],
-    footer: { label: 'Attachment', clueId: 'attachment', text: 'Mailbox_Update_Form.html' },
-    clues: [
-      {
-        id: 'sender',
-        label: 'Sender address',
-        text: 'security-alert@example.com',
-        explanation: 'The sender uses a generic safe example domain instead of a real organization domain.',
-      },
-      {
-        id: 'urgency',
-        label: 'Urgent threat',
-        text: 'your mailbox will be deleted',
-        explanation: 'Scams often rush people so they act before checking the message.',
-      },
-      {
-        id: 'password',
-        label: 'Password request',
-        text: 'Confirm your password',
-        explanation: 'Legitimate services should not ask you to provide a password through an email link.',
-      },
-      {
-        id: 'link',
-        label: 'Suspicious link',
-        text: 'account-review.example.com',
-        explanation: 'The link uses a generic safe example domain. Visit the real service through a known address instead.',
-      },
-      {
-        id: 'attachment',
-        label: 'Unexpected attachment',
-        text: 'Mailbox_Update_Form.html',
-        explanation: 'Unexpected forms or attachments can collect credentials or run unwanted code.',
-      },
-    ],
-  },
-  {
-    id: 'subtle',
-    name: 'Subtle phishing',
-    sender: 'billing-team@example.com',
-    subject: 'Invoice question for your account',
-    bodyParts: [
-      'Hi, we noticed a ',
-      { clueId: 'context', text: 'payment issue on your account' },
-      '. Please review the secure billing note at ',
-      { clueId: 'link', text: 'portal.example.com' },
-      ' ',
-      { clueId: 'deadline', text: 'before the end of the day' },
-      '.',
-    ],
-    footer: 'This message was sent by Example Billing Services.',
-    clues: [
-      {
-        id: 'context',
-        label: 'Unexpected context',
-        text: 'payment issue on your account',
-        explanation: 'A billing issue can be real, but unexpected money-related messages deserve extra checking.',
-      },
-      {
-        id: 'link',
-        label: 'Link destination',
-        text: 'portal.example.com',
-        explanation: 'Do not trust link text alone. Open a browser and type the known address yourself.',
-      },
-      {
-        id: 'deadline',
-        label: 'Soft deadline',
-        text: 'before the end of the day',
-        explanation: 'Subtle phishing may use polite pressure instead of dramatic threats.',
-      },
-    ],
-  },
-];
+const examplesByLevel: Record<LearningLevel, MessageExample[]> = {
+  kids: [
+    {
+      id: 'kids-prize',
+      name: 'Prize message',
+      sender: 'game-prizes@example.com',
+      senderClueId: 'sender',
+      subject: 'You won free game coins',
+      subjectClueId: 'subject',
+      bodyParts: [
+        'Click now to get your prize. ',
+        { clueId: 'secret', text: 'Send your login code' },
+        ' and ',
+        { clueId: 'link', text: 'claim-prize.example.com' },
+        '.',
+      ],
+      footer: 'Ask a trusted adult if a prize message surprises you.',
+      clues: [
+        { id: 'subject', label: 'Surprise prize', text: 'You won free game coins', explanation: 'A surprise prize is a clue to slow down and ask before clicking.' },
+        { id: 'sender', label: 'Strange sender', text: 'game-prizes@example.com', explanation: 'The sender is not a person or game you know.' },
+        { id: 'secret', label: 'Secret code request', text: 'Send your login code', explanation: 'Your password or login code is private. Do not share it in a message.' },
+        { id: 'link', label: 'Unknown link', text: 'claim-prize.example.com', explanation: 'A surprise prize link is a reason to stop and ask for help.' },
+      ],
+    },
+  ],
+  entry: [
+    {
+      id: 'obvious',
+      name: 'Obvious phishing',
+      sender: 'security-alert@example.com',
+      senderClueId: 'sender',
+      subject: 'Your mailbox will be closed today',
+      subjectClueId: 'subject',
+      bodyParts: [
+        'We detected unusual activity. ',
+        { clueId: 'password', text: 'Confirm your password' },
+        ' immediately at ',
+        { clueId: 'link', text: 'account-review.example.com' },
+        ' or ',
+        { clueId: 'urgency', text: 'your mailbox will be deleted' },
+        '.',
+      ],
+      footer: { label: 'Attachment', clueId: 'attachment', text: 'Mailbox_Update_Form.html' },
+      clues: [
+        { id: 'subject', label: 'Threatening subject', text: 'Your mailbox will be closed today', explanation: 'The subject tries to create pressure before you even open the message.' },
+        { id: 'sender', label: 'Sender address', text: 'security-alert@example.com', explanation: 'The sender uses a generic safe example domain instead of a real organization domain.' },
+        { id: 'urgency', label: 'Urgent threat', text: 'your mailbox will be deleted', explanation: 'Scams often rush people so they act before checking the message.' },
+        { id: 'password', label: 'Password request', text: 'Confirm your password', explanation: 'Legitimate services should not ask you to provide a password through an email link.' },
+        { id: 'link', label: 'Suspicious link', text: 'account-review.example.com', explanation: 'The link uses a generic safe example domain. Visit the real service through a known address instead.' },
+        { id: 'attachment', label: 'Unexpected attachment', text: 'Mailbox_Update_Form.html', explanation: 'Unexpected forms or attachments can collect credentials or run unwanted code.' },
+      ],
+    },
+    {
+      id: 'subtle',
+      name: 'Subtle phishing',
+      sender: 'billing-team@example.com',
+      subject: 'Invoice question for your account',
+      subjectClueId: 'subject',
+      bodyParts: [
+        'Hi, we noticed a ',
+        { clueId: 'context', text: 'payment issue on your account' },
+        '. Please review the secure billing note at ',
+        { clueId: 'link', text: 'portal.example.com' },
+        ' ',
+        { clueId: 'deadline', text: 'before the end of the day' },
+        '.',
+      ],
+      footer: 'This message was sent by Example Billing Services.',
+      clues: [
+        { id: 'subject', label: 'Unexpected account topic', text: 'Invoice question for your account', explanation: 'A surprise billing subject is not proof of phishing, but it is a reason to verify carefully.' },
+        { id: 'context', label: 'Unexpected context', text: 'payment issue on your account', explanation: 'A billing issue can be real, but unexpected money-related messages deserve extra checking.' },
+        { id: 'link', label: 'Link destination', text: 'portal.example.com', explanation: 'Do not trust link text alone. Open a browser and type the known address yourself.' },
+        { id: 'deadline', label: 'Soft deadline', text: 'before the end of the day', explanation: 'Subtle phishing may use polite pressure instead of dramatic threats.' },
+      ],
+    },
+  ],
+  enthusiast: [
+    {
+      id: 'enthusiast-workflow',
+      name: 'Workflow pretext',
+      sender: 'it-support@example.com',
+      senderClueId: 'sender',
+      subject: 'SSO session review for your workspace',
+      subjectClueId: 'subject',
+      bodyParts: [
+        'We saw unusual login metadata for your account. Review the SSO report at ',
+        { clueId: 'link', text: 'sso-review.example.com' },
+        ' and upload the ',
+        { clueId: 'attachment', text: 'session_export.html' },
+        ' file ',
+        { clueId: 'deadline', text: 'before today’s access sync' },
+        '. If prompted, ',
+        { clueId: 'mfa', text: 'approve the verification request' },
+        '.',
+      ],
+      footer: { label: 'Reply-To', clueId: 'reply', text: 'helpdesk-review@example.com' },
+      clues: [
+        { id: 'subject', label: 'Identity workflow pretext', text: 'SSO session review for your workspace', explanation: 'A sign-in or SSO subject can be legitimate, but it is high-value enough to verify through a known channel.' },
+        { id: 'sender', label: 'Sender domain', text: 'it-support@example.com', explanation: 'Generic sender domains are a clue. Compare sender, reply-to, and the real service domain.' },
+        { id: 'link', label: 'Lookalike workflow link', text: 'sso-review.example.com', explanation: 'The text sounds official, but the destination should be verified independently.' },
+        { id: 'attachment', label: 'HTML attachment', text: 'session_export.html', explanation: 'HTML files can imitate sign-in screens or collect data. Unexpected attachments deserve caution.' },
+        { id: 'deadline', label: 'Operational pressure', text: 'before today’s access sync', explanation: 'A believable deadline can push people through normal checks.' },
+        { id: 'mfa', label: 'MFA prompt request', text: 'approve the verification request', explanation: 'Approving unexpected prompts can give an attacker access.' },
+        { id: 'reply', label: 'Reply-To mismatch', text: 'helpdesk-review@example.com', explanation: 'Reply-to details can differ from the visible sender. That mismatch is a useful defensive signal.' },
+      ],
+    },
+  ],
+};
 
 export function PhishingDetector() {
+  const { level } = useLearningLevel();
+  const examples = examplesByLevel[level];
   const [messageId, setMessageId] = useState(examples[0].id);
   const [foundClues, setFoundClues] = useState<string[]>([]);
   const [activeClueId, setActiveClueId] = useState('');
   const message = examples.find((example) => example.id === messageId) ?? examples[0];
   const selectedClue = message.clues.find((clue) => clue.id === activeClueId);
+
+  useEffect(() => {
+    setMessageId(examples[0].id);
+    setFoundClues([]);
+    setActiveClueId('');
+  }, [examples]);
 
   const resetMessage = (id: string) => {
     setMessageId(id);
@@ -169,7 +200,7 @@ export function PhishingDetector() {
           </div>
           <div className="email-row">
             <span>Subject</span>
-            <strong>{message.subject}</strong>
+            {message.subjectClueId ? renderHotspot(message.subjectClueId, message.subject) : <strong>{message.subject}</strong>}
           </div>
           <div className="email-body">
             {message.bodyParts.map((part, index) =>
