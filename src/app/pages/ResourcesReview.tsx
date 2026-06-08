@@ -12,7 +12,7 @@ const resourcesContent = {
     nextCopy: 'Try asking before clicking a surprise link, or make one account safer with help from a trusted adult.',
   },
   entry: {
-    title: 'Turn security lessons into a short checklist.',
+    title: 'Use a short checklist.',
     description: 'You do not need perfect security. You need a few reliable habits that reduce common risk.',
     heading: 'A practical checklist for everyday accounts.',
     checklist: ['Use unique passwords.', 'Use a password manager.', 'Enable 2FA.', 'Check URLs before signing in.', 'Keep software updated.', 'Avoid unknown attachments.', 'Be careful on public Wi-Fi.', 'Back up important data.'],
@@ -21,7 +21,7 @@ const resourcesContent = {
       'Start with email, banking, school, work, or cloud storage. Give it a unique password, enable stronger 2FA if available, save recovery codes safely, and review where the account is signed in.',
   },
   enthusiast: {
-    title: 'Review habits as controls that reduce likelihood, impact, or recovery time.',
+    title: 'Review security controls.',
     description: 'The best next step is usually a high-leverage control on a high-value account.',
     heading: 'A technical hygiene checklist.',
     checklist: ['Use unique manager-generated passwords.', 'Prefer phishing-resistant MFA where available.', 'Audit recovery email and phone paths.', 'Verify domains before authentication.', 'Patch browsers, OS, and extensions.', 'Limit extension permissions.', 'Separate sensitive accounts and profiles.', 'Keep tested backups.'],

@@ -79,7 +79,7 @@ const moduleBase = [
   { icon: Radar, title: 'Understand Threats', href: '/threats' },
   { icon: Fingerprint, title: 'Spot Phishing', href: '/phishing' },
   { icon: Network, title: 'Follow Your Data', href: '/networks-data' },
-  { icon: KeyRound, title: 'Test Password Strength', href: '/password-lab' },
+  { icon: KeyRound, title: 'Practice Passwords', href: '/password-lab' },
   { icon: Database, title: 'Protect Accounts with 2FA', href: '/two-factor' },
 ];
 
@@ -103,7 +103,7 @@ export function Home({ navigate }: HomeProps) {
               Start Learning
             </button>
             <button type="button" className="button-secondary" onClick={() => navigate('/password-lab')}>
-              Try Password Lab
+              Practice Passwords
             </button>
           </div>
         </div>

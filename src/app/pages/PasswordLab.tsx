@@ -5,33 +5,51 @@ import { useLearningLevel } from '../learningLevel';
 
 const passwordContent = {
   kids: {
-    title: 'A strong password is like a strong lock.',
-    description: 'Use a made-up sample here. The lab stays on your device and helps you learn what makes a secret phrase stronger.',
-    cards: [
-      ['Long secrets help', 'A longer secret phrase is harder to guess than a tiny one.'],
+    title: 'Passwords protect your accounts.',
+    description: 'Learn how secret phrases, privacy, and password helpers keep accounts safer.',
+    passwordCards: [
+      ['Make it long', 'A longer secret phrase is harder to guess than a tiny one.'],
       ['Keep it private', 'Do not share passwords or login codes in chats, games, or messages.'],
-      ['Ask for help', 'A trusted adult can help set up a password manager.'],
-      ['Use different secrets', 'Do not use the same secret for every account.'],
+      ['Use a new one', 'A different password for each account keeps one problem from spreading.'],
+    ],
+    managerTitle: 'A password manager is a helper.',
+    managerCopy: 'A password manager keeps secret words in one protected place. That is safer than trying to remember every password, hiding notes around the house, or losing the paper they were written on. With help from a trusted adult, it can make strong passwords and keep them organized.',
+    managerCards: [
+      ['Stores secrets', 'It keeps passwords in one protected place.'],
+      ['Makes new ones', 'It can create long passwords that are hard to guess.'],
+      ['Ask for help', 'A trusted adult can help choose and set one up.'],
     ],
   },
   entry: {
-    title: 'Test password strength without sending anything anywhere.',
-    description: 'The lab estimates strength locally in your browser and teaches why length, uniqueness, and pattern avoidance matter.',
-    cards: [
-      ['Length matters', 'A longer password or passphrase usually gives attackers more possibilities to guess than a short complex password.'],
-      ['Unique passwords matter', 'If one service is breached, reused passwords can let attackers try the same login elsewhere.'],
-      ['Password managers help', 'A password manager can create and remember strong unique passwords so you do not have to memorize each one.'],
-      ['Passphrases can be practical', 'Several unrelated words can be easier to type and remember while still being long.'],
+    title: 'Build stronger password habits.',
+    description: 'Use longer, unique passwords and let a manager handle the hard parts.',
+    passwordCards: [
+      ['Length matters', 'Long passwords or passphrases are usually harder to guess.'],
+      ['Uniqueness matters', 'Reused passwords can fail on many sites after one breach.'],
+      ['Avoid patterns', 'Names, dates, repeats, and keyboard runs are easier to guess.'],
+    ],
+    managerTitle: 'Password managers reduce the memory burden.',
+    managerCopy: 'Password managers help because most people cannot safely memorize a different strong password for every account. Without one, passwords often end up reused, saved in insecure notes, or written on paper that can be lost or seen by someone else. A manager stores them in a protected vault, creates stronger unique passwords, and keeps account access more organized.',
+    managerCards: [
+      ['Generate', 'Create long random passwords for each account.'],
+      ['Remember', 'Store them behind one strong master password or device unlock.'],
+      ['Autofill carefully', 'Filling only on matching sites can help you spot impostors.'],
     ],
   },
   enthusiast: {
-    title: 'Estimate password strength from length, search space, and predictable patterns.',
-    description: 'This local lab uses an educational entropy-style estimate, then applies caps and penalties for short, common, repeated, or sequential patterns.',
-    cards: [
-      ['Entropy is a model', 'More possible guesses usually means more work, but human patterns reduce real-world strength.'],
-      ['Length usually wins', 'Long passphrases often beat short complex strings because each added character or word expands the search space.'],
-      ['Reuse changes risk', 'A strong password reused across sites can fail after one breach because attackers automate credential stuffing.'],
-      ['Managers reduce friction', 'Password managers make unique random passwords practical and reduce memorization pressure.'],
+    title: 'Model password risk.',
+    description: 'Compare length, search space, reuse, and predictable human patterns.',
+    passwordCards: [
+      ['Entropy is only a model', 'Search space helps, but real guesses exploit human patterns.'],
+      ['Length expands cost', 'Long passphrases often beat short complex strings.'],
+      ['Reuse changes impact', 'One leaked password can power credential stuffing elsewhere.'],
+    ],
+    managerTitle: 'Managers make unique credentials practical.',
+    managerCopy: 'Password managers reduce the operational risk of human memory and ad hoc storage. Without a vault, credentials tend to drift into insecure notes, reused patterns, screenshots, or paper records that can be misplaced or exposed. A manager makes unique high-entropy credentials practical, centralizes protected storage, and helps keep recovery and autofill behavior more controlled.',
+    managerCards: [
+      ['Random by default', 'Generated passwords avoid many human pattern penalties.'],
+      ['Per-site isolation', 'Unique credentials reduce breach blast radius.'],
+      ['Recovery matters', 'Protect vault access, recovery codes, and trusted devices.'],
     ],
   },
 };
@@ -43,20 +61,36 @@ export function PasswordLab() {
   return (
     <>
       <PageHeader
-        eyebrow="Password Lab"
+        eyebrow="Password"
         title={content.title}
         description={content.description}
       />
 
-      <PasswordStrengthLab />
-
       <section className="content-grid">
-        {content.cards.map(([title, copy]) => (
+        {content.passwordCards.map(([title, copy]) => (
           <InfoCard title={title} key={title}>
             <p>{copy}</p>
           </InfoCard>
         ))}
       </section>
+
+      <section className="split-section">
+        <div>
+          <p className="eyebrow">Password managers</p>
+          <h2>{content.managerTitle}</h2>
+        </div>
+        <p>{content.managerCopy}</p>
+      </section>
+
+      <section className="content-grid">
+        {content.managerCards.map(([title, copy]) => (
+          <InfoCard title={title} key={title}>
+            <p>{copy}</p>
+          </InfoCard>
+        ))}
+      </section>
+
+      <PasswordStrengthLab />
     </>
   );
 }

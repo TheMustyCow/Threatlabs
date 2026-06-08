@@ -5,8 +5,8 @@ import { useLearningLevel } from '../learningLevel';
 
 const threatsContent = {
   kids: {
-    title: 'Online threats are tricks or unsafe things that can bother your accounts or devices.',
-    description: 'You do not need to be scared. Learn the signs, pause, and ask a trusted adult when something feels strange.',
+    title: 'Spot online tricks.',
+    description: 'Learn the signs, pause, and ask a trusted adult when something feels strange.',
     cards: [
       ['Unsafe apps', 'Some apps or files can act like a broken toy. Only install things from trusted places.'],
       ['Tricky messages', 'Some messages pretend to be helpful so you click too fast.'],
@@ -18,8 +18,8 @@ const threatsContent = {
     mapCopy: 'Practice matching an online problem with a calm next step.',
   },
   entry: {
-    title: 'A cyber threat is anything that can misuse your devices, accounts, money, or data.',
-    description: 'Threats are not all the same. Some are technical, some are social, and many combine both.',
+    title: 'Understand common threats.',
+    description: 'Some threats are technical, some are social, and many combine both.',
     cards: [
       ['Malware', 'Malware is harmful software. It might arrive through a fake app, unsafe download, or infected attachment.'],
       ['Scams', 'Scams try to make you pay, share information, or trust a false story. The technology is often simple.'],
@@ -31,9 +31,9 @@ const threatsContent = {
     mapCopy: 'Beginners do not need to memorize every attack name. Start by matching common risks to repeatable habits.',
   },
   enthusiast: {
-    title: 'Cyber threats are risk patterns across people, devices, services, and identity systems.',
+    title: 'Map threat patterns.',
     description:
-      'Useful defense starts with categories: attack surface, initial vector, credential exposure, data impact, and recovery path.',
+      'Start with attack surface, vector, credential exposure, data impact, and recovery path.',
     cards: [
       ['Malware vectors', 'Downloads, macros, extensions, and trojanized installers can create endpoint exposure.'],
       ['Fraud and scams', 'Scams combine pretext, urgency, and payment rails to turn trust into action.'],

@@ -14,7 +14,7 @@ const navItems: NavItem[] = [
   { path: '/threats', label: 'Threats' },
   { path: '/phishing', label: 'Phishing' },
   { path: '/networks-data', label: 'Networks & Data' },
-  { path: '/password-lab', label: 'Password Lab' },
+  { path: '/password-lab', label: 'Password' },
   { path: '/two-factor', label: '2FA' },
   { path: '/resources', label: 'Review' },
 ];

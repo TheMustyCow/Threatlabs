@@ -5,7 +5,7 @@ import { useLearningLevel } from '../learningLevel';
 
 const twoFactorContent = {
   kids: {
-    title: '2FA is a second step that helps prove it is really you.',
+    title: 'Add a second step.',
     description: 'A password is one secret. A second step can be a code, a trusted device, or help from a grown-up.',
     splitTitle: 'One secret plus one extra check.',
     splitCopy: 'If someone guesses a password, the second step can help keep the account closed.',
@@ -17,8 +17,8 @@ const twoFactorContent = {
     ],
   },
   entry: {
-    title: 'Two-factor authentication adds a second check before account access.',
-    description: 'Passwords can be guessed, reused, phished, or leaked. 2FA makes a stolen password less useful by asking for another proof.',
+    title: 'Protect accounts with 2FA.',
+    description: '2FA makes a stolen password less useful by asking for another proof.',
     splitTitle: 'Something you know, plus something you have or are.',
     splitCopy:
       'A password is something you know. An authenticator app, hardware key, passkey, device prompt, or biometric check can add a second factor. Any 2FA is usually better than none, though some options are stronger than others.',
@@ -30,7 +30,7 @@ const twoFactorContent = {
     ],
   },
   enthusiast: {
-    title: 'MFA reduces identity risk by requiring a second proof.',
+    title: 'Compare MFA options.',
     description: 'Compare SMS, TOTP, push prompts, passkeys, and hardware keys by usability, recoverability, and phishing resistance.',
     splitTitle: 'Different factors resist different failure modes.',
     splitCopy:

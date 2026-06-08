@@ -5,7 +5,7 @@ import { useLearningLevel } from '../learningLevel';
 
 const phishingContent = {
   kids: {
-    title: 'Phishing is a tricky message that wants you to click too fast.',
+    title: 'Pause before you click.',
     description: 'It may ask for a secret code, a password, or a quick click. Pause and ask a trusted adult.',
     splitTitle: 'A tricky message may try to rush you.',
     splitCopy: 'Look for surprises: a strange link, a prize, a warning, or a request for a secret code. You can always stop and ask for help.',
@@ -13,8 +13,8 @@ const phishingContent = {
     signCopy: 'If this appears out of nowhere, pause before clicking.',
   },
   entry: {
-    title: 'Phishing messages try to make a bad action feel normal.',
-    description: 'They often borrow trust from brands, schools, employers, banks, delivery services, or people you know.',
+    title: 'Spot phishing messages.',
+    description: 'They borrow trust from brands, schools, banks, deliveries, or people you know.',
     splitTitle: 'Phishing creates urgency, trust, fear, or curiosity.',
     splitCopy:
       'The message may ask you to sign in, open a file, send money, or share a verification code. The safest move is to pause, check the source, and open the service through a known address instead of a surprise link.',
@@ -22,7 +22,7 @@ const phishingContent = {
     signCopy: 'When this appears unexpectedly, slow down and verify the message through another trusted path.',
   },
   enthusiast: {
-    title: 'Phishing blends technical signals with social pressure.',
+    title: 'Read phishing signals.',
     description: 'Look for sender-domain mismatch, suspicious link targets, attachment risk, unusual workflow requests, and pressure patterns.',
     splitTitle: 'Good phishing often looks routine, not dramatic.',
     splitCopy:

@@ -5,7 +5,7 @@ import { useLearningLevel } from '../learningLevel';
 
 const networksContent = {
   kids: {
-    title: 'Visiting a website is like sending a letter and getting one back.',
+    title: 'Follow a website visit.',
     description: 'Your device asks for a page, the internet helps deliver the message, and the website sends an answer.',
     cards: [
       ['Your device asks', 'A phone, tablet, or computer sends a request for a website.'],
@@ -19,7 +19,7 @@ const networksContent = {
     wifiCopy: 'A public network can be useful, but it is not the best place for private account work. Ask before joining unknown networks.',
   },
   entry: {
-    title: 'A website visit is a round trip through several places.',
+    title: 'Trace a web request.',
     description: 'Understanding the path helps explain privacy, tracking, public Wi-Fi risk, and why HTTPS matters.',
     cards: [
       ['What happens when you visit a website', 'Your browser asks for a site, the request travels across networks, and a server returns the page or app data.'],
@@ -34,8 +34,8 @@ const networksContent = {
       'Public Wi-Fi is useful, but attackers can imitate network names or observe poorly protected traffic. For important accounts, prefer trusted networks, HTTPS, and a trusted VPN when your situation calls for it.',
   },
   enthusiast: {
-    title: 'A web request exposes different data at different layers.',
-    description: 'DNS, IP routing, TLS, cookies, browser storage, and server logs each shape what may be visible.',
+    title: 'Map visible data.',
+    description: 'DNS, IP routing, TLS, cookies, storage, and logs each shape what may be visible.',
     cards: [
       ['Request path', 'The browser resolves a name, opens a connection, negotiates encryption, and sends an HTTP request.'],
       ['IP metadata', 'IP addresses and timing can reveal connection patterns even when content is encrypted.'],
