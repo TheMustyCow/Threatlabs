@@ -1,5 +1,5 @@
 import { Menu, Moon, ShieldCheck, Sun, X } from 'lucide-react';
-import { type ReactNode, useEffect, useState } from 'react';
+import { type ReactNode, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { LearningLevelToggle } from './LearningLevelToggle';
 
 export type NavItem = {
@@ -16,6 +16,12 @@ type LayoutProps = {
 
 export function Layout({ children, currentPath, navItems, onNavigate }: LayoutProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navRef = useRef<HTMLElement | null>(null);
+  const [navBubbleStyle, setNavBubbleStyle] = useState({
+    opacity: 0,
+    transform: 'translateX(0px)',
+    width: 0,
+  });
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     const savedTheme = window.localStorage.getItem('threat-labs-theme');
 
@@ -30,6 +36,40 @@ export function Layout({ children, currentPath, navItems, onNavigate }: LayoutPr
     document.documentElement.dataset.theme = theme;
     window.localStorage.setItem('threat-labs-theme', theme);
   }, [theme]);
+
+  useLayoutEffect(() => {
+    const updateNavBubble = () => {
+      const nav = navRef.current;
+      const activeLink = nav?.querySelector<HTMLElement>('.nav-link.is-active');
+
+      if (!nav || !activeLink) {
+        setNavBubbleStyle((currentStyle) => ({ ...currentStyle, opacity: 0 }));
+        return;
+      }
+
+      const navBounds = nav.getBoundingClientRect();
+      const linkBounds = activeLink.getBoundingClientRect();
+
+      setNavBubbleStyle({
+        opacity: 1,
+        transform: `translateX(${linkBounds.left - navBounds.left}px)`,
+        width: linkBounds.width,
+      });
+    };
+
+    updateNavBubble();
+    window.addEventListener('resize', updateNavBubble);
+
+    const resizeObserver = new ResizeObserver(updateNavBubble);
+    if (navRef.current) {
+      resizeObserver.observe(navRef.current);
+    }
+
+    return () => {
+      window.removeEventListener('resize', updateNavBubble);
+      resizeObserver.disconnect();
+    };
+  }, [currentPath, menuOpen, navItems]);
 
   const handleNavigate = (path: string) => {
     onNavigate(path);
@@ -54,7 +94,8 @@ export function Layout({ children, currentPath, navItems, onNavigate }: LayoutPr
           <span>Threat Labs</span>
         </a>
 
-        <nav className={`site-nav ${menuOpen ? 'is-open' : ''}`} aria-label="Primary navigation">
+        <nav ref={navRef} className={`site-nav ${menuOpen ? 'is-open' : ''}`} aria-label="Primary navigation">
+          <span className="nav-active-bubble" style={navBubbleStyle} aria-hidden="true" />
           {navItems.map((item) => {
             const isActive = currentPath === item.path || (currentPath === '' && item.path === '/');
 
