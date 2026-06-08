@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    .badge { fill: #dceaf2; }
+    .mark { fill: none; stroke: #335f78; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+
+    @media (prefers-color-scheme: dark) {
+      .badge { fill: #233945; }
+      .mark { stroke: #93c2d6; }
+    }
+  </style>
+  <circle class="badge" cx="32" cy="32" r="30"/>
+  <path class="mark" d="M32 10 16 17v13c0 11 7 19 16 24 9-5 16-13 16-24V17L32 10Z"/>
+  <path class="mark" d="m24 32 6 6 12-14"/>
+</svg>
