@@ -1,4 +1,5 @@
 import { InfoCard } from '../components/InfoCard';
+import { LearnMore } from '../components/LearnMore';
 import { PageHeader } from '../components/PageHeader';
 import { PhishingDetector } from '../components/learning/PhishingDetector';
 import { useLearningLevel } from '../learningLevel';
@@ -61,6 +62,12 @@ export function Phishing() {
       </section>
 
       <PhishingDetector />
+
+      <LearnMore
+        copy="FTC Consumer Advice shows common phishing clues and safer steps to take when a message feels suspicious."
+        source="FTC Phishing Guide"
+        href="https://consumer.ftc.gov/articles/how-recognize-avoid-phishing-scams"
+      />
     </>
   );
 }

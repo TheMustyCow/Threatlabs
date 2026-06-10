@@ -1,4 +1,5 @@
 import { InfoCard } from '../components/InfoCard';
+import { LearnMore } from '../components/LearnMore';
 import { PageHeader } from '../components/PageHeader';
 import { TwoFactorFlow, TwoFactorRecommendation } from '../components/learning/TwoFactorFlow';
 import { useLearningLevel } from '../learningLevel';
@@ -74,6 +75,12 @@ export function TwoFactor() {
 
       <TwoFactorFlow />
       <TwoFactorRecommendation />
+
+      <LearnMore
+        copy="FTC Consumer Advice explains two-factor authentication and why it helps protect accounts even if a password is stolen."
+        source="FTC 2FA Guidance"
+        href="https://consumer.ftc.gov/articles/protect-your-personal-information-hackers-and-scammers"
+      />
     </>
   );
 }

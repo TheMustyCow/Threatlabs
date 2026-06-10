@@ -140,7 +140,7 @@ export function Layout({ children, currentPath, navItems, onNavigate }: LayoutPr
         </div>
       </header>
 
-      <main>{children}</main>
+      <main className={currentPath === '/review' ? 'review-page' : undefined}>{children}</main>
 
       <footer className="site-footer">
         <div>

@@ -1,4 +1,5 @@
 import { InfoCard } from '../components/InfoCard';
+import { LearnMore } from '../components/LearnMore';
 import { PageHeader } from '../components/PageHeader';
 import { ThreatRevealGrid } from '../components/learning/ThreatRevealGrid';
 import { useLearningLevel } from '../learningLevel';
@@ -74,6 +75,12 @@ export function Threats() {
         </div>
         <ThreatRevealGrid />
       </section>
+
+      <LearnMore
+        copy="FTC Consumer Advice explains practical ways to protect personal information from hackers and scammers."
+        source="FTC Consumer Advice"
+        href="https://consumer.ftc.gov/articles/protect-your-personal-information-hackers-and-scammers"
+      />
     </>
   );
 }

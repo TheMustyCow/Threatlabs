@@ -1,4 +1,5 @@
 import { InfoCard } from '../components/InfoCard';
+import { LearnMore } from '../components/LearnMore';
 import { PageHeader } from '../components/PageHeader';
 import { DataPathExplorer } from '../components/learning/DataPathExplorer';
 import { useLearningLevel } from '../learningLevel';
@@ -79,6 +80,12 @@ export function NetworksData() {
         </div>
         <p>{content.wifiCopy}</p>
       </section>
+
+      <LearnMore
+        copy="Cloudflare Learning Center has free explanations of HTTPS, DNS, privacy, and how the internet works."
+        source="Cloudflare Learning Center"
+        href="https://www.cloudflare.com/learning/"
+      />
     </>
   );
 }

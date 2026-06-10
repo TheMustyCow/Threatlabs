@@ -1,4 +1,5 @@
 import { InfoCard } from '../components/InfoCard';
+import { LearnMore } from '../components/LearnMore';
 import { PageHeader } from '../components/PageHeader';
 import { PasswordStrengthLab } from '../components/learning/PasswordStrengthLab';
 import { useLearningLevel } from '../learningLevel';
@@ -91,6 +92,12 @@ export function PasswordLab() {
       </section>
 
       <PasswordStrengthLab />
+
+      <LearnMore
+        copy="FTC Consumer Advice covers strong passwords, password managers, and safer ways to protect important accounts."
+        source="FTC Password Guidance"
+        href="https://consumer.ftc.gov/articles/protect-your-personal-information-hackers-and-scammers"
+      />
     </>
   );
 }

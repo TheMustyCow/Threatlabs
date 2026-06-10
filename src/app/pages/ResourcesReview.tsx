@@ -57,7 +57,7 @@ export function ResourcesReview() {
 
       <Quiz />
 
-      <section className="split-section">
+      <section className="split-section page-end-section">
         <div>
           <p className="eyebrow">Your next security upgrade</p>
           <h2>{content.nextTitle}</h2>
