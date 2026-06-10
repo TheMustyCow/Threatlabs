@@ -751,6 +751,55 @@ html[data-learning-level='kids'] .recommendation-card .icon-disc {
   border-color: color-mix(in srgb, var(--tl-good), transparent 68%);
 }
 
+html[data-learning-level='entry'] .module-card .icon-disc,
+html[data-learning-level='enthusiast'] .module-card .icon-disc,
+html[data-learning-level='entry'] .recommendation-card .icon-disc,
+html[data-learning-level='enthusiast'] .recommendation-card .icon-disc {
+  color: var(--tl-accent);
+  background: color-mix(in srgb, var(--tl-accent), transparent 88%);
+  border-color: color-mix(in srgb, var(--tl-accent), transparent 72%);
+}
+
+html[data-learning-level='entry'] .info-card,
+html[data-learning-level='entry'] .checklist-card,
+html[data-learning-level='entry'] .quiz-card,
+html[data-learning-level='entry'] .hygiene-list li,
+html[data-learning-level='enthusiast'] .info-card,
+html[data-learning-level='enthusiast'] .checklist-card,
+html[data-learning-level='enthusiast'] .quiz-card,
+html[data-learning-level='enthusiast'] .hygiene-list li {
+  background: color-mix(in srgb, var(--tl-accent), transparent 96%);
+}
+
+html[data-learning-level='entry'] .info-card h3,
+html[data-learning-level='entry'] .checklist-card h3,
+html[data-learning-level='entry'] .quiz-card h3,
+html[data-learning-level='entry'] .path-detail h3,
+html[data-learning-level='entry'] .factor-detail h3,
+html[data-learning-level='entry'] .recommendation-card h3,
+html[data-learning-level='enthusiast'] .info-card h3,
+html[data-learning-level='enthusiast'] .checklist-card h3,
+html[data-learning-level='enthusiast'] .quiz-card h3,
+html[data-learning-level='enthusiast'] .path-detail h3,
+html[data-learning-level='enthusiast'] .factor-detail h3,
+html[data-learning-level='enthusiast'] .recommendation-card h3 {
+  color: var(--tl-accent);
+}
+
+html[data-learning-level='entry'] .process-grid span,
+html[data-learning-level='enthusiast'] .process-grid span {
+  color: var(--tl-accent);
+  background: color-mix(in srgb, var(--tl-accent), transparent 90%);
+  border-color: color-mix(in srgb, var(--tl-accent), transparent 66%);
+}
+
+html[data-learning-level='entry'] .module-card:hover,
+html[data-learning-level='enthusiast'] .module-card:hover,
+html[data-learning-level='entry'] .interactive-panel,
+html[data-learning-level='enthusiast'] .interactive-panel {
+  border-color: var(--tl-accent-border);
+}
+
 .split-section {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
