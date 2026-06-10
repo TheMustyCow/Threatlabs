@@ -909,21 +909,34 @@ html[data-learning-level='kids'] .process-grid span {
   background: var(--tl-surface);
   border: 1px solid var(--tl-border);
   border-radius: var(--tl-radius);
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
 }
 
-.threat-card button {
+.threat-card:hover {
+  border-color: var(--tl-border-strong);
+  transform: translateY(-2px);
+}
+
+.threat-card:focus-visible {
+  outline: 3px solid var(--tl-accent-border);
+  outline-offset: 3px;
+}
+
+.threat-card-toggle {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   padding: 0 0 12px;
   color: var(--tl-text);
-  background: transparent;
-  border: 0;
   text-align: left;
 }
 
-.threat-card button span:first-child {
+.threat-card-toggle span:first-child {
   font-weight: 750;
 }
 

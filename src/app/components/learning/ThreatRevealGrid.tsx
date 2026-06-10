@@ -43,20 +43,34 @@ export function ThreatRevealGrid() {
     <div className="threat-grid">
       {threats.map((threat) => {
         const isOpen = openThreat === threat.name;
+        const toggleThreat = () => setOpenThreat(isOpen ? '' : threat.name);
+        const actionLabel = isOpen ? 'Close' : level === 'kids' ? 'Safe step' : 'Show step';
 
         return (
-          <article className={isOpen ? 'threat-card is-open' : 'threat-card'} key={threat.name}>
-            <button
-              type="button"
+          <article
+            className={isOpen ? 'threat-card is-open' : 'threat-card'}
+            key={threat.name}
+            role="button"
+            tabIndex={0}
+            onClick={toggleThreat}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggleThreat();
+              }
+            }}
+            aria-label={`${isOpen ? 'Close' : 'Open'} ${threat.name} defense details`}
+          >
+            <div
+              className="threat-card-toggle"
               aria-expanded={isOpen}
-              onClick={() => setOpenThreat(isOpen ? '' : threat.name)}
             >
               <span>{threat.name}</span>
               <span className="expand-action" aria-hidden="true">
-                {isOpen ? 'Close' : 'Defense'}
+                {actionLabel}
                 {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
               </span>
-            </button>
+            </div>
             <p>
               <strong>{level === 'kids' ? 'What:' : 'What it is:'}</strong> {threat.what}
             </p>
