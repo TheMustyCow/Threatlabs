@@ -8,17 +8,17 @@ type HomeProps = {
 
 const homeContent = {
   kids: {
-    eyebrow: 'Online safety for curious kids',
+    eyebrow: 'Internet safety for kids',
     subtitle:
-      'Threat Labs teaches safe internet habits with short lessons and simple practice. Learn when to pause, ask a trusted adult, and protect your secret codes.',
-    moduleIntro: 'Pick a card and practice one safe habit at a time.',
-    whyTitle: 'Small choices help keep accounts safe.',
+      'Learn simple ways to stay safer online. Pause before you click, keep secret codes private, and ask a trusted adult when something feels odd.',
+    moduleIntro: 'Pick a card and try one simple safety habit.',
+    whyTitle: 'Small choices help.',
     why:
-      'A strange link, a shared password, or a public Wi-Fi network can cause trouble. You will learn how to slow down, check first, and ask for help when something feels odd.',
+      'A strange link, a shared password, or unknown Wi-Fi can cause problems. You can slow down, check first, and ask for help.',
     process: [
-      ['Learn the idea', 'Read a short explanation with everyday examples.'],
-      ['Try a small challenge', 'Practice spotting clues without pressure.'],
-      ['Use the habit', 'Take one simple safety step into real life.'],
+      ['Learn', 'Read a short idea.'],
+      ['Try', 'Practice with a quick activity.'],
+      ['Use it', 'Take one safe step online.'],
     ],
   },
   entry: {
@@ -53,11 +53,11 @@ const homeContent = {
 
 const moduleDescriptions = {
   kids: [
-    'Learn about unsafe things online and what to do when something feels wrong.',
-    'Find clues in strange messages before clicking anything.',
-    'See how a website visit is like sending a letter and getting one back.',
-    'Try a local password lock test and learn why secret phrases help.',
-    'Learn why accounts sometimes ask for one more proof that it is you.',
+    'Learn what can feel unsafe online.',
+    'Find clues in strange messages.',
+    'See where a website message goes.',
+    'Try a password lock test.',
+    'Learn why accounts ask for one more check.',
   ],
   entry: [
     'Learn the difference between malware, scams, stolen credentials, and everyday risk.',
@@ -75,6 +75,12 @@ const moduleDescriptions = {
   ],
 };
 
+const moduleTitles = {
+  kids: ['Online Tricks', 'Tricky Messages', 'Website Paths', 'Passwords', 'Extra Sign-In Check'],
+  entry: ['Understand Threats', 'Spot Phishing', 'Follow Your Data', 'Practice Passwords', 'Protect Accounts with 2FA'],
+  enthusiast: ['Understand Threats', 'Spot Phishing', 'Follow Your Data', 'Practice Passwords', 'Protect Accounts with 2FA'],
+};
+
 const moduleBase = [
   { icon: Radar, title: 'Understand Threats', href: '/threats' },
   { icon: Fingerprint, title: 'Spot Phishing', href: '/phishing' },
@@ -88,6 +94,7 @@ export function Home({ navigate }: HomeProps) {
   const content = homeContent[level];
   const modules = moduleBase.map((module, index) => ({
     ...module,
+    title: moduleTitles[level][index],
     description: moduleDescriptions[level][index],
   }));
 

@@ -6,11 +6,11 @@ import { useLearningLevel } from '../learningLevel';
 const phishingContent = {
   kids: {
     title: 'Pause before you click.',
-    description: 'It may ask for a secret code, a password, or a quick click. Pause and ask a trusted adult.',
-    splitTitle: 'A tricky message may try to rush you.',
-    splitCopy: 'Look for surprises: a strange link, a prize, a warning, or a request for a secret code. You can always stop and ask for help.',
-    signs: ['Strange sender', 'Big hurry', 'Unknown link', 'Unexpected file', 'Secret code request', 'Too-good-to-be-true prize'],
-    signCopy: 'If this appears out of nowhere, pause before clicking.',
+    description: 'Some messages ask for a code, a password, or a fast click. Stop and ask first.',
+    splitTitle: 'Tricky messages rush you.',
+    splitCopy: 'Watch for surprise prizes, scary warnings, strange links, or secret-code questions. You can always stop.',
+    signs: ['Strange sender', 'Big hurry', 'Unknown link', 'Surprise file', 'Asks for a code', 'Surprise prize'],
+    signCopy: 'If it surprises you, pause and ask.',
   },
   entry: {
     title: 'Spot phishing messages.',

@@ -5,7 +5,7 @@ import { useLearningLevel } from '../../learningLevel';
 const stepsByLevel = {
   kids: [
     ['Enter password', 'First you type the secret you know.', LockKeyhole],
-    ['Use second step', 'Then a trusted phone, app, or key helps prove it is you.', Smartphone],
+    ['Use one more check', 'Then a phone, app, or key helps show it is you.', Smartphone],
     ['Account opens', 'The account opens after both checks pass.', CheckCircle2],
   ],
   entry: [
@@ -26,13 +26,14 @@ export function TwoFactorFlow() {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeStep = steps[activeIndex];
   const ActiveIcon = activeStep.icon;
+  const flowTitle = level === 'kids' ? 'Sign-In Steps' : 'Account Sign-In Flow';
 
   return (
     <section className="interactive-panel" aria-labelledby="two-factor-flow-title">
       <div className="panel-heading">
         <div>
           <p className="eyebrow">Interactive</p>
-          <h2 id="two-factor-flow-title">Account Sign-In Flow</h2>
+          <h2 id="two-factor-flow-title">{flowTitle}</h2>
         </div>
         <p>Step {activeIndex + 1} of 3</p>
       </div>
@@ -70,8 +71,8 @@ export function TwoFactorRecommendation() {
   const recommendations = {
     kids: [
       ['Beginner', 'Ask a trusted adult to help turn on a second step.'],
-      ['Stronger', 'Use a trusted device or passkey when available.'],
-      ['Backup', 'Keep recovery codes private and safe.'],
+      ['Stronger', 'Use a trusted device when you can.'],
+      ['Backup', 'Keep backup codes private.'],
     ],
     entry: [
       ['Beginner', 'Use an authenticator app for important accounts.'],
@@ -84,6 +85,7 @@ export function TwoFactorRecommendation() {
       ['Recovery', 'Protect recovery codes and account recovery channels like high-value credentials.'],
     ],
   }[level];
+  const recommendationTitle = level === 'kids' ? 'Which extra check should I use?' : 'Which 2FA should I use?';
 
   return (
     <article className="recommendation-card">
@@ -91,7 +93,7 @@ export function TwoFactorRecommendation() {
         <KeyRound size={22} />
       </div>
       <div>
-        <h3>Which 2FA should I use?</h3>
+        <h3>{recommendationTitle}</h3>
         <ul className="recommendation-list">
           {recommendations.map(([label, copy]) => (
             <li key={label}>

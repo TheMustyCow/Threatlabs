@@ -6,18 +6,18 @@ import { useLearningLevel } from '../learningLevel';
 const passwordContent = {
   kids: {
     title: 'Passwords protect your accounts.',
-    description: 'Learn how secret phrases, privacy, and password helpers keep accounts safer.',
+    description: 'Learn how to make passwords longer, private, and easier to remember.',
     passwordCards: [
-      ['Make it long', 'A longer secret phrase is harder to guess than a tiny one.'],
-      ['Keep it private', 'Do not share passwords or login codes in chats, games, or messages.'],
-      ['Use a new one', 'A different password for each account keeps one problem from spreading.'],
+      ['Make it long', 'Long passwords are harder to guess.'],
+      ['Keep it private', 'Do not share passwords or login codes.'],
+      ['Use a new one', 'Try not to use the same password everywhere.'],
     ],
     managerTitle: 'A password manager is a helper.',
-    managerCopy: 'A password manager keeps secret words in one protected place. That is safer than trying to remember every password, hiding notes around the house, or losing the paper they were written on. With help from a trusted adult, it can make strong passwords and keep them organized.',
+    managerCopy: 'A password manager keeps passwords in one safer place. That is better than losing a paper list or hiding notes. With help from a trusted adult, it can make strong passwords and remember them for you.',
     managerCards: [
-      ['Stores secrets', 'It keeps passwords in one protected place.'],
-      ['Makes new ones', 'It can create long passwords that are hard to guess.'],
-      ['Ask for help', 'A trusted adult can help choose and set one up.'],
+      ['Keeps them safe', 'It stores passwords for you.'],
+      ['Makes new ones', 'It can make long passwords.'],
+      ['Ask for help', 'A trusted adult can help set it up.'],
     ],
   },
   entry: {

@@ -6,16 +6,16 @@ import { useLearningLevel } from '../learningLevel';
 const threatsContent = {
   kids: {
     title: 'Spot online tricks.',
-    description: 'Learn the signs, pause, and ask a trusted adult when something feels strange.',
+    description: 'Learn what feels strange, then pause and ask for help.',
     cards: [
-      ['Unsafe apps', 'Some apps or files can act like a broken toy. Only install things from trusted places.'],
-      ['Tricky messages', 'Some messages pretend to be helpful so you click too fast.'],
-      ['Secret code stealing', 'A password is a secret code. Do not share it in chats, games, or messages.'],
-      ['Shared information', 'Sometimes websites lose information. A grown-up can help change passwords if that happens.'],
-      ['Online pressure', 'A trick may say “hurry!” A safe choice is to slow down.'],
+      ['Unsafe apps', 'Only install apps with help from a trusted adult.'],
+      ['Tricky messages', 'Some messages try to make you click fast.'],
+      ['Secret codes', 'Do not share passwords or login codes.'],
+      ['Lost information', 'If a site has a problem, an adult can help fix your account.'],
+      ['Big hurry', 'If a message says “hurry,” slow down.'],
     ],
-    mapTitle: 'Click a card to find one safe habit.',
-    mapCopy: 'Practice matching an online problem with a calm next step.',
+    mapTitle: 'Click a card for a safe step.',
+    mapCopy: 'Match a problem with what to do next.',
   },
   entry: {
     title: 'Understand common threats.',

@@ -38,10 +38,10 @@ const examplesByLevel: Record<LearningLevel, MessageExample[]> = {
       ],
       footer: 'Ask a trusted adult if a prize message surprises you.',
       clues: [
-        { id: 'subject', label: 'Surprise prize', text: 'You won free game coins', explanation: 'A surprise prize is a clue to slow down and ask before clicking.' },
+        { id: 'subject', label: 'Surprise prize', text: 'You won free game coins', explanation: 'A surprise prize means you should slow down and ask.' },
         { id: 'sender', label: 'Strange sender', text: 'game-prizes@example.com', explanation: 'The sender is not a person or game you know.' },
-        { id: 'secret', label: 'Secret code request', text: 'Send your login code', explanation: 'Your password or login code is private. Do not share it in a message.' },
-        { id: 'link', label: 'Unknown link', text: 'claim-prize.example.com', explanation: 'A surprise prize link is a reason to stop and ask for help.' },
+        { id: 'secret', label: 'Asks for a code', text: 'Send your login code', explanation: 'Your password or login code is private. Do not share it.' },
+        { id: 'link', label: 'Unknown link', text: 'claim-prize.example.com', explanation: 'A surprise prize link is a reason to stop and ask.' },
       ],
     },
   ],
@@ -137,6 +137,7 @@ export function PhishingDetector() {
   const [activeClueId, setActiveClueId] = useState('');
   const message = examples.find((example) => example.id === messageId) ?? examples[0];
   const selectedClue = message.clues.find((clue) => clue.id === activeClueId);
+  const detectorTitle = level === 'kids' ? 'Tricky Message Finder' : 'Phishing Detector';
 
   useEffect(() => {
     setMessageId(examples[0].id);
@@ -172,7 +173,7 @@ export function PhishingDetector() {
         <div>
           <p className="eyebrow">Interactive</p>
           <p className="eyebrow">Find all the clues</p>
-          <h2 id="phishing-detector-title">Phishing Detector</h2>
+          <h2 id="phishing-detector-title">{detectorTitle}</h2>
         </div>
         <p>
           Found {foundClues.length} of {message.clues.length} clues
@@ -235,8 +236,12 @@ export function PhishingDetector() {
           ) : (
             <>
               <p className="eyebrow">Start here</p>
-              <h3>Click anything that feels suspicious.</h3>
-              <p>Look for pressure, odd sender details, password requests, attachments, and links you did not expect.</p>
+              <h3>{level === 'kids' ? 'Click anything that feels strange.' : 'Click anything that feels suspicious.'}</h3>
+              <p>
+                {level === 'kids'
+                  ? 'Look for surprise prizes, strange senders, secret-code questions, and links you did not expect.'
+                  : 'Look for pressure, odd sender details, password requests, attachments, and links you did not expect.'}
+              </p>
             </>
           )}
         </aside>

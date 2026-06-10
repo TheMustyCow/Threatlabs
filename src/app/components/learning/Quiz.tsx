@@ -11,10 +11,10 @@ type Question = {
 const questionsByLevel: Record<LearningLevel, Question[]> = {
   kids: [
     {
-      prompt: 'A message says you won a prize and asks for your login code. What should you do?',
+      prompt: 'A prize message asks for your login code. What should you do?',
       options: ['Send the code', 'Ask a trusted adult', 'Click fast before it expires'],
       answer: 1,
-      feedback: 'Secret codes should stay private. Asking for help is a strong choice.',
+      feedback: 'Secret codes stay private. Asking is a smart choice.',
     },
     {
       prompt: 'What is a strong password like?',
@@ -36,9 +36,9 @@ const questionsByLevel: Record<LearningLevel, Question[]> = {
     },
     {
       prompt: 'What is 2FA?',
-      options: ['A second step to prove it is you', 'A game level', 'A kind of snack'],
+      options: ['One more sign-in check', 'A game level', 'A kind of snack'],
       answer: 0,
-      feedback: '2FA adds one more check after the password.',
+      feedback: 'It adds one more check after the password.',
     },
   ],
   entry: [

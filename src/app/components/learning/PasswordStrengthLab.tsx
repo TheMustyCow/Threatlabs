@@ -170,18 +170,50 @@ export function PasswordStrengthLab() {
   const [password, setPassword] = useState('');
   const result = useMemo(() => estimatePassword(password), [password]);
   const levelNote = {
-    kids: 'Think of this as a lock test. Longer secret phrases are stronger, and you should ask a trusted adult before changing real passwords.',
+    kids: 'Try a made-up password. Longer secret phrases are stronger. Ask an adult before changing a real password.',
     entry: 'This tool runs locally in your browser. Nothing is stored or sent.',
     enthusiast:
       'Local estimate: length and character set shape the search space; passphrase word count can help; common, repeated, and sequential patterns reduce the score.',
   }[level];
+  const labTitle = level === 'kids' ? 'Password Lock Test' : 'Password Strength Lab';
+  const privacyNote =
+    level === 'kids'
+      ? 'Use a pretend password here. Do not type a real one.'
+      : 'Use a made-up sample. This is an educational estimate, not a security guarantee.';
+  const meterTitle = level === 'kids' ? 'Lock strength' : 'Vault integrity';
+  const kidsRuleLabels: Record<string, string> = {
+    length12: 'At least 12 characters',
+    length16: 'Extra long',
+    uppercase: 'Has a big letter',
+    lowercase: 'Has a small letter',
+    number: 'Has a number',
+    symbol: 'Has a symbol',
+    repeated: 'No repeats',
+    common: 'No common words',
+    sequential: 'No easy pattern',
+    passphrase: 'Long phrase or strong password',
+  };
+  const displayedRules = result.rules.map((rule) => ({
+    ...rule,
+    label: level === 'kids' ? (kidsRuleLabels[rule.id] ?? rule.label) : rule.label,
+  }));
+  const kidsSuggestions = result.suggestions.map((suggestion) =>
+    suggestion
+      .replace('Mix character types, or use a long passphrase with several unrelated words.', 'Use a longer phrase or mix letters, numbers, and symbols.')
+      .replace('Add one more unrelated word to make the passphrase stronger.', 'Add one more word to make it stronger.')
+      .replace('Avoid simple repeats or sequences such as aaa, 1234, abcd, or qwerty.', 'Avoid easy patterns like 1234, abcd, or qwerty.')
+      .replace('Remove common words such as password, admin, welcome, qwerty, or 123456.', 'Do not use common words like password or 123456.')
+      .replace('Use a unique password for every account and let a password manager remember it.', 'Use a different password for each account. A password manager can help.')
+      .replace('Try a sample password to see the lab respond.', 'Try a pretend password to see what happens.'),
+  );
+  const displayedSuggestions = level === 'kids' ? kidsSuggestions : result.suggestions;
 
   return (
     <section className="interactive-panel password-panel" aria-labelledby="password-lab-title">
       <div className="panel-heading">
         <div>
           <p className="eyebrow">Interactive</p>
-          <h2 id="password-lab-title">Password Strength Lab</h2>
+          <h2 id="password-lab-title">{labTitle}</h2>
         </div>
         <p>{levelNote}</p>
       </div>
@@ -197,15 +229,13 @@ export function PasswordStrengthLab() {
             onChange={(event) => setPassword(event.target.value)}
             aria-describedby="password-privacy-note"
           />
-          <p id="password-privacy-note">
-            Use a made-up sample. This is an educational estimate, not a security guarantee.
-          </p>
+          <p id="password-privacy-note">{privacyNote}</p>
         </div>
 
         <div className="vault-meter" aria-live="polite">
           <div className="meter-topline">
             <span>
-              <Shield size={20} aria-hidden="true" /> Vault integrity
+              <Shield size={20} aria-hidden="true" /> {meterTitle}
             </span>
             <strong>{result.score}/100</strong>
           </div>
@@ -221,7 +251,7 @@ export function PasswordStrengthLab() {
         <article className="checklist-card">
           <h3>Checklist</h3>
           <ul className="rule-list">
-            {result.rules.map((rule) => (
+            {displayedRules.map((rule) => (
               <li className={rule.passed ? 'is-passed' : ''} key={rule.id}>
                 {rule.passed ? <Check size={18} /> : <X size={18} />}
                 {rule.label}
@@ -233,7 +263,7 @@ export function PasswordStrengthLab() {
         <article className="checklist-card">
           <h3>Suggestions</h3>
           <ul className="plain-list">
-            {result.suggestions.map((suggestion) => (
+            {displayedSuggestions.map((suggestion) => (
               <li key={suggestion}>
                 <Circle size={8} aria-hidden="true" />
                 {suggestion}

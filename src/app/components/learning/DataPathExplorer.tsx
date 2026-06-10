@@ -3,11 +3,11 @@ import { useLearningLevel } from '../../learningLevel';
 
 const pathStepsByLevel = {
   kids: [
-    ['Device', 'Your device writes the “letter” asking for a website.', 'It knows what you type before sending it.', 'Keep your device locked and ask before sharing private info.'],
-    ['Wi-Fi / Router', 'Your Wi-Fi router is the first stop for the message.', 'The network name and connection may be visible.', 'Use trusted Wi-Fi when possible.'],
-    ['Internet path', 'Other networks help deliver the message.', 'They help move the message but should not see protected page details.', 'Look for HTTPS on important sites.'],
-    ['Website', 'The website reads the request and sends a page back.', 'The site sees what you send to it.', 'Only type secrets on sites you trust.'],
-    ['Back to you', 'The answer travels back so your browser can show the page.', 'The site may remember you with cookies.', 'Sign out on shared devices.'],
+    ['Device', 'Your device asks for a website.', 'It sees what you type.', 'Keep your device locked.'],
+    ['Wi-Fi', 'Wi-Fi helps send the message.', 'The Wi-Fi name may be seen.', 'Use Wi-Fi you trust.'],
+    ['Web path', 'The message travels to the website.', 'It moves through other places.', 'Use trusted sites.'],
+    ['Website', 'The website sends a page back.', 'The site sees what you send.', 'Only type secrets on trusted sites.'],
+    ['Back to you', 'The page comes back to your browser.', 'The site may remember you.', 'Sign out on shared devices.'],
   ],
   entry: [
     ['Device', 'Your phone or laptop starts the request and may store local files, app data, browser history, and cookies.', 'Your device can see everything you type before it is sent.', 'Lock the device, keep it updated, and be careful about shared devices.'],
@@ -45,7 +45,7 @@ export function DataPathExplorer() {
           <p className="eyebrow">Interactive</p>
           <h2 id="data-path-title">Data Path Explorer</h2>
         </div>
-        <p>Click each stop to see what may be visible.</p>
+        <p>{level === 'kids' ? 'Click each stop to see where the message goes.' : 'Click each stop to see what may be visible.'}</p>
       </div>
 
       <div className="data-flow" aria-label="Website visit data path">
@@ -67,11 +67,11 @@ export function DataPathExplorer() {
         <p>{activeStep.detail}</p>
         <dl>
           <div>
-            <dt>What may be visible</dt>
+            <dt>{level === 'kids' ? 'Who can see it' : 'What may be visible'}</dt>
             <dd>{activeStep.visible}</dd>
           </div>
           <div>
-            <dt>Useful habit</dt>
+            <dt>{level === 'kids' ? 'Safe step' : 'Useful habit'}</dt>
             <dd>{activeStep.habit}</dd>
           </div>
         </dl>

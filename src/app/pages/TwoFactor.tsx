@@ -6,14 +6,14 @@ import { useLearningLevel } from '../learningLevel';
 const twoFactorContent = {
   kids: {
     title: 'Add a second step.',
-    description: 'A password is one secret. A second step can be a code, a trusted device, or help from a grown-up.',
-    splitTitle: 'One secret plus one extra check.',
-    splitCopy: 'If someone guesses a password, the second step can help keep the account closed.',
+    description: 'A password is one secret. A code or trusted device can add one more check.',
+    splitTitle: 'One secret. One extra check.',
+    splitCopy: 'If someone guesses a password, the extra check can help stop them.',
     cards: [
-      ['Text codes', 'A code can arrive on a phone. It is better than no extra step.'],
-      ['Authenticator apps', 'An app can make a new code when you need to sign in.'],
-      ['Security keys', 'A small key can help prove the right person is signing in.'],
-      ['Passkeys', 'A passkey lets a trusted device help you sign in safely.'],
+      ['Text codes', 'A phone can get a sign-in code.'],
+      ['Code apps', 'An app can make a new code.'],
+      ['Security keys', 'A small key can help unlock an account.'],
+      ['Passkeys', 'A trusted device can help you sign in.'],
     ],
   },
   entry: {

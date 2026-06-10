@@ -4,10 +4,10 @@ import { useLearningLevel } from '../../learningLevel';
 
 const threatsByLevel = {
   kids: [
-    ['Unsafe downloads', 'A file or app from the wrong place may not be safe.', 'It can make a device act strangely.', 'Ask before downloading and use trusted app stores.'],
-    ['Tricky messages', 'A message may pretend to be from a game, school, or friend.', 'It may ask you to click or share a code.', 'Pause and ask a trusted adult before clicking.'],
-    ['Shared passwords', 'A password is a secret key.', 'If someone else has it, they may open your account.', 'Keep secret codes private and use different ones.'],
-    ['Public Wi-Fi', 'A shared network is like a busy hallway.', 'Other people may be nearby on the same network.', 'Avoid private account work on unknown Wi-Fi.'],
+    ['Unsafe downloads', 'Some apps or files are not safe.', 'They can make a device act strange.', 'Ask before downloading.'],
+    ['Tricky messages', 'A message may pretend to be from a game, school, or friend.', 'It may ask you to click or share a code.', 'Pause and ask before clicking.'],
+    ['Shared passwords', 'A password is a secret.', 'If someone has it, they may open your account.', 'Keep secret codes private.'],
+    ['Unknown Wi-Fi', 'Some Wi-Fi is not safe to use.', 'Other people may be nearby on it.', 'Use trusted Wi-Fi for important accounts.'],
   ],
   entry: [
     ['Malware', 'Software designed to damage a device, spy on activity, or take control of files.', 'It can slow devices, steal data, or lock files for payment.', 'Install updates, avoid unknown downloads, and use built-in security tools.'],
@@ -58,14 +58,14 @@ export function ThreatRevealGrid() {
               </span>
             </button>
             <p>
-              <strong>What it is:</strong> {threat.what}
+              <strong>{level === 'kids' ? 'What:' : 'What it is:'}</strong> {threat.what}
             </p>
             <p>
-              <strong>How it affects users:</strong> {threat.impact}
+              <strong>{level === 'kids' ? 'Why it matters:' : 'How it affects users:'}</strong> {threat.impact}
             </p>
             {isOpen ? (
               <p className="defense-note">
-                <strong>Practical defense:</strong> {threat.defense}
+                <strong>{level === 'kids' ? 'Safe step:' : 'Practical defense:'}</strong> {threat.defense}
               </p>
             ) : null}
           </article>

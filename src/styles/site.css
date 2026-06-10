@@ -85,9 +85,9 @@ html[data-learning-level='entry'] {
   --tl-soft: #87939a;
   --tl-border: #d3dde3;
   --tl-border-strong: #a9bac4;
-  --tl-accent: #335f78;
-  --tl-accent-soft: #dceaf2;
-  --tl-accent-border: rgba(51, 95, 120, 0.28);
+  --tl-accent: #1f6f9b;
+  --tl-accent-soft: #d8edf8;
+  --tl-accent-border: rgba(31, 111, 155, 0.32);
   --tl-good: #40735d;
   --tl-warning: #8d642f;
   --tl-danger: #a34949;
@@ -98,13 +98,13 @@ html[data-learning-level='entry'] {
   --tl-primary-button-text: #ffffff;
   --tl-meter-bg: #ffffff;
   --tl-meter-text: #17252f;
-  --tl-meter-track: #dceaf2;
-  --tl-meter-fill: #5b8ea6;
+  --tl-meter-track: #d8edf8;
+  --tl-meter-fill: #2c86b3;
   --tl-meter-shadow: 0 16px 34px rgba(23, 37, 47, 0.08);
   --level-kids: #2d6f9f;
   --level-kids-bg: #dceffd;
-  --level-entry: #335f78;
-  --level-entry-bg: #dceaf2;
+  --level-entry: #1f6f9b;
+  --level-entry-bg: #d8edf8;
   --level-enthusiast: #8f4646;
   --level-enthusiast-bg: #f2dfdd;
 }
@@ -121,9 +121,9 @@ html[data-theme='dark'][data-learning-level='entry'] {
   --tl-soft: #87969d;
   --tl-border: #2c3a41;
   --tl-border-strong: #4a5f69;
-  --tl-accent: #93c2d6;
-  --tl-accent-soft: #233945;
-  --tl-accent-border: rgba(147, 194, 214, 0.28);
+  --tl-accent: #7fd0f2;
+  --tl-accent-soft: #203d4c;
+  --tl-accent-border: rgba(127, 208, 242, 0.3);
   --tl-good: #9ac8ad;
   --tl-warning: #d8b47b;
   --tl-danger: #e79a98;
@@ -135,12 +135,12 @@ html[data-theme='dark'][data-learning-level='entry'] {
   --tl-meter-bg: #182126;
   --tl-meter-text: #eef4f6;
   --tl-meter-track: #2c3a41;
-  --tl-meter-fill: #93c2d6;
+  --tl-meter-fill: #7fd0f2;
   --tl-meter-shadow: 0 18px 38px rgba(0, 0, 0, 0.24);
   --level-kids: #9fd7ee;
   --level-kids-bg: #203544;
-  --level-entry: #93c2d6;
-  --level-entry-bg: #233945;
+  --level-entry: #7fd0f2;
+  --level-entry-bg: #203d4c;
   --level-enthusiast: #e6aaa4;
   --level-enthusiast-bg: #3d2927;
 }
@@ -232,7 +232,7 @@ html[data-learning-level='kids'] {
   --tl-accent: #2d6f9f;
   --tl-accent-soft: #dceffd;
   --tl-accent-border: rgba(45, 111, 159, 0.3);
-  --tl-good: #4d7f5b;
+  --tl-good: #2f9464;
   --tl-warning: #b56457;
   --tl-danger: #b84d63;
   --tl-header-bg: rgba(245, 250, 255, 0.92);
@@ -247,8 +247,8 @@ html[data-learning-level='kids'] {
   --tl-meter-shadow: 0 18px 36px rgba(45, 111, 159, 0.12);
   --level-kids: #7a4b00;
   --level-kids-bg: #fff0a6;
-  --level-entry: #2d6f9f;
-  --level-entry-bg: #dceffd;
+  --level-entry: #2f9464;
+  --level-entry-bg: #dcf3e6;
   --level-enthusiast: #b84d63;
   --level-enthusiast-bg: #ffe5e7;
 }
@@ -268,7 +268,7 @@ html[data-theme='dark'][data-learning-level='kids'] {
   --tl-accent: #8fd0ff;
   --tl-accent-soft: #24445e;
   --tl-accent-border: rgba(143, 208, 255, 0.28);
-  --tl-good: #9edcae;
+  --tl-good: #8ee0aa;
   --tl-warning: #e8a39a;
   --tl-danger: #ff9caf;
   --tl-header-bg: rgba(16, 27, 42, 0.92);
@@ -283,8 +283,8 @@ html[data-theme='dark'][data-learning-level='kids'] {
   --tl-meter-shadow: 0 18px 38px rgba(0, 0, 0, 0.24);
   --level-kids: #ffd36e;
   --level-kids-bg: #3e3522;
-  --level-entry: #9edcae;
-  --level-entry-bg: #213b30;
+  --level-entry: #8ee0aa;
+  --level-entry-bg: #203d30;
   --level-enthusiast: #ff9caf;
   --level-enthusiast-bg: #482934;
 }
@@ -709,6 +709,18 @@ main {
   color: var(--tl-accent);
   font-size: 0.9rem;
   font-weight: 700;
+}
+
+html[data-learning-level='kids'] .module-card .icon-disc {
+  color: var(--tl-good);
+  background: color-mix(in srgb, var(--tl-good), transparent 84%);
+  border-color: color-mix(in srgb, var(--tl-good), transparent 68%);
+}
+
+html[data-learning-level='kids'] .section-block[aria-labelledby='modules-title'] .eyebrow,
+html[data-learning-level='kids'] .module-card-title,
+html[data-learning-level='kids'] .module-card-action {
+  color: var(--tl-good);
 }
 
 .split-section {

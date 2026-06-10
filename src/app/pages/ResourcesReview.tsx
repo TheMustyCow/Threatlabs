@@ -4,12 +4,12 @@ import { useLearningLevel } from '../learningLevel';
 
 const resourcesContent = {
   kids: {
-    title: 'Remember a few simple safety habits.',
-    description: 'Small safe choices help you enjoy the internet with less worry.',
-    heading: 'A kid-friendly safety checklist.',
-    checklist: ['Keep secret codes private.', 'Ask before clicking strange links.', 'Use strong secret phrases.', 'Tell a trusted adult if something feels wrong.', 'Do not open surprise files.', 'Use trusted Wi-Fi.', 'Keep devices updated.', 'Back up important things with help.'],
-    nextTitle: 'Pick one safe habit to practice today.',
-    nextCopy: 'Try asking before clicking a surprise link, or make one account safer with help from a trusted adult.',
+    title: 'Remember simple safety steps.',
+    description: 'Small choices can help you stay safer online.',
+    heading: 'Your safety checklist.',
+    checklist: ['Keep codes private.', 'Ask before clicking strange links.', 'Use strong passwords.', 'Tell an adult if something feels wrong.', 'Do not open surprise files.', 'Use trusted Wi-Fi.', 'Update devices with help.', 'Save important things with help.'],
+    nextTitle: 'Pick one step for today.',
+    nextCopy: 'Ask before clicking a strange link, or make one account safer with help.',
   },
   entry: {
     title: 'Use a short checklist.',

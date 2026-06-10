@@ -5,18 +5,18 @@ import { useLearningLevel } from '../learningLevel';
 
 const networksContent = {
   kids: {
-    title: 'Follow a website visit.',
-    description: 'Your device asks for a page, the internet helps deliver the message, and the website sends an answer.',
+    title: 'See where a website goes.',
+    description: 'Your device asks for a page. The website sends one back.',
     cards: [
-      ['Your device asks', 'A phone, tablet, or computer sends a request for a website.'],
-      ['Wi-Fi helps carry it', 'Your router is like the first mailbox for your message.'],
-      ['The internet guides it', 'Networks help the message find the right website.'],
-      ['The website answers', 'The website sends back the page you asked for.'],
-      ['Cookies remember things', 'Some sites use tiny notes to remember settings or sign-ins.'],
-      ['Private info needs care', 'Only type private information on sites you trust.'],
+      ['Your device asks', 'Your phone, tablet, or computer asks for a website.'],
+      ['Wi-Fi carries it', 'Wi-Fi helps send the message.'],
+      ['The web guides it', 'The message finds the right website.'],
+      ['The site answers', 'The website sends the page back.'],
+      ['Some sites remember', 'A site may remember settings or sign-ins.'],
+      ['Be careful', 'Only type secrets on sites you trust.'],
     ],
-    wifiTitle: 'Shared Wi-Fi is a public space.',
-    wifiCopy: 'A public network can be useful, but it is not the best place for private account work. Ask before joining unknown networks.',
+    wifiTitle: 'Unknown Wi-Fi needs care.',
+    wifiCopy: 'Ask before joining Wi-Fi you do not know. Use trusted Wi-Fi for important accounts.',
   },
   entry: {
     title: 'Trace a web request.',
