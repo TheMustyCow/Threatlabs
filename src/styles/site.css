@@ -473,11 +473,15 @@ a {
   font-weight: 760;
 }
 
-.learning-level-toggle span {
+.learning-level-toggle .level-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: currentColor;
+}
+
+.learning-level-toggle .level-label {
+  line-height: 1;
 }
 
 .learning-level-toggle[data-level='kids'] {
@@ -1727,6 +1731,81 @@ html[data-learning-level='kids'] .badge-row span {
 
   .site-nav.is-open {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .site-header {
+    align-items: center;
+    gap: 10px;
+    padding: 14px 0;
+  }
+
+  .brand {
+    gap: 8px;
+    font-size: 0.95rem;
+  }
+
+  .brand-mark {
+    width: 32px;
+    height: 32px;
+  }
+
+  .header-actions {
+    gap: 6px;
+    margin-left: auto;
+  }
+
+  .theme-toggle,
+  .menu-button,
+  .learning-level-toggle {
+    height: 38px;
+  }
+
+  .theme-toggle,
+  .menu-button {
+    width: 38px;
+  }
+
+  .learning-level-toggle {
+    min-width: 0;
+    gap: 6px;
+    padding: 0 11px;
+    font-size: 0.8rem;
+  }
+
+  .hero-section {
+    padding-top: 28px;
+  }
+
+  .eyebrow {
+    margin-bottom: 12px;
+    font-size: 0.72rem;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(2rem, 11vw, 2.75rem);
+  }
+
+  .hero-copy p,
+  .page-header > p {
+    margin-top: 22px;
+  }
+}
+
+@media (max-width: 340px) {
+  .learning-level-toggle {
+    width: 38px;
+    padding: 0;
+  }
+
+  .learning-level-toggle .level-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 }
 

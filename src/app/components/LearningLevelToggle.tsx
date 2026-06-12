@@ -17,8 +17,8 @@ export function LearningLevelToggle() {
       aria-label={`Change learning level. Current level is ${label}. Next level is ${nextLabel}.`}
       onClick={cycleLevel}
     >
-      <span aria-hidden="true" />
-      {label}
+      <span className="level-dot" aria-hidden="true" />
+      <span className="level-label">{label}</span>
     </button>
   );
 }
